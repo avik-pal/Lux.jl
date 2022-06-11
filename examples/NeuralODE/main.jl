@@ -57,12 +57,13 @@ function NeuralODE(model::Lux.AbstractExplicitLayer;
 end
 
 function (n::NeuralODE)(x, ps, st)
+    st_ = st.model
     function dudt(u, p, t)
-        u_, st = n.model(u, p, st)
+        u_, st_ = n.model(u, p, st_)
         return u_
     end
-    prob = ODEProblem{false}(ODEFunction{false}(dudt), x, n.tspan, ps)
-    return solve(prob, n.solver; sensealg=n.sensealg, n.kwargs...), st
+    prob = ODEProblem{false}(ODEFunction{false}(dudt), x, n.tspan, ps.model)
+    return solve(prob, n.solver; sensealg=n.sensealg, n.kwargs...), (model=st_,)
 end
 
 function diffeqsol_to_array(x::ODESolution{T, N, <:AbstractVector{<:CuArray}}) where {T, N}

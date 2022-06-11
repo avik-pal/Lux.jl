@@ -188,15 +188,15 @@ end
             ip2 = Input(rand(Float32, 3, 3))
 
             @test par(ip, ps, st)[1] ≈
-                  par.layers[1](ip.x, ps.layer_1, st.layer_1)[1] +
-                  par.layers[2](ip.x, ps.layer_2, st.layer_2)[1]
+                  par.layers[1](ip.x, ps.layers.layer_1, st.layers.layer_1)[1] +
+                  par.layers[2](ip.x, ps.layers.layer_2, st.layers.layer_2)[1]
             @test par((ip, ip2), ps, st)[1] ≈
-                  par.layers[1](ip.x, ps.layer_1, st.layer_1)[1] +
-                  par.layers[2](ip2.x, ps.layer_2, st.layer_2)[1]
+                  par.layers[1](ip.x, ps.layers.layer_1, st.layers.layer_1)[1] +
+                  par.layers[2](ip2.x, ps.layers.layer_2, st.layers.layer_2)[1]
             gs = gradient((p, x...) -> sum(par(x, p, st)[1]), ps, ip, ip2)
             gs_reg = gradient(ps, ip, ip2) do p, x, y
-                sum(par.layers[1](x.x, p.layer_1, st.layer_1)[1] +
-                    par.layers[2](y.x, p.layer_2, st.layer_2)[1])
+                sum(par.layers[1](x.x, p.layers.layer_1, st.layers.layer_1)[1] +
+                    par.layers[2](y.x, p.layers.layer_2, st.layers.layer_2)[1])
             end
 
             @test gs[1] ≈ gs_reg[1]

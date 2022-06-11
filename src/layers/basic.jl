@@ -181,10 +181,10 @@ struct SkipConnection{T <: AbstractExplicitLayer, F} <:
     connection::F
 end
 
-@inline function (skip::SkipConnection)(x, ps::Union{ComponentArray, NamedTuple},
+@inline function (skip::SkipConnection)(x, ps::VALID_PARAMETER_TYPES,
                                         st::NamedTuple)
-    mx, st = skip.layers(x, ps, st)
-    return skip.connection(mx, x), st
+    mx, st = skip.layers(x, ps.layers, st.layers)
+    return skip.connection(mx, x), (layers=st,)
 end
 
 """
@@ -226,12 +226,12 @@ function Parallel(connection, layers...)
     return Parallel(connection, NamedTuple{names}(layers))
 end
 
-function (m::Parallel)(x, ps::Union{ComponentArray, NamedTuple}, st::NamedTuple)
+function (m::Parallel)(x, ps::VALID_PARAMETER_TYPES, st::NamedTuple)
     return applyparallel(m.layers, m.connection, x, ps, st)
 end
 
 @generated function applyparallel(layers::NamedTuple{names}, connection::C, x::T,
-                                  ps::Union{ComponentArray, NamedTuple},
+                                  ps::VALID_PARAMETER_TYPES,
                                   st::NamedTuple) where {names, C, T}
     N = length(names)
     y_symbols = [gensym() for _ in 1:(N + 1)]
@@ -240,11 +240,11 @@ end
     calls = []
     append!(calls,
             [:(($(y_symbols[i]), $(st_symbols[i])) = layers[$i]($(getinput(i)),
-                                                                ps.$(names[i]),
-                                                                st.$(names[i])))
+                                                                ps.layers.$(names[i]),
+                                                                st.layers.$(names[i])))
              for
              i in 1:N])
-    push!(calls, :(st = NamedTuple{$names}((($(Tuple(st_symbols)...),)))))
+    push!(calls, :(st = (layers = NamedTuple{$names}((($(Tuple(st_symbols)...),))))))
     if C == Nothing
         push!(calls, :($(y_symbols[N + 1]) = tuple($(Tuple(y_symbols[1:N])...))))
     else
@@ -311,22 +311,22 @@ function BranchLayer(layers...)
     return BranchLayer(NamedTuple{names}(layers))
 end
 
-function (m::BranchLayer)(x, ps::Union{ComponentArray, NamedTuple}, st::NamedTuple)
+function (m::BranchLayer)(x, ps::VALID_PARAMETER_TYPES, st::NamedTuple)
     applybranching(m.layers, x, ps, st)
 end
 
 @generated function applybranching(layers::NamedTuple{names}, x,
-                                   ps::Union{ComponentArray, NamedTuple},
+                                   ps::VALID_PARAMETER_TYPES,
                                    st::NamedTuple) where {names}
     N = length(names)
     y_symbols = [gensym() for _ in 1:N]
     st_symbols = [gensym() for _ in 1:N]
     calls = []
     append!(calls,
-            [:(($(y_symbols[i]), $(st_symbols[i])) = layers[$i](x, ps.$(names[i]),
-                                                                st.$(names[i])))
+            [:(($(y_symbols[i]), $(st_symbols[i])) = layers[$i](x, ps.layers.$(names[i]),
+                                                                st.layers.$(names[i])))
              for i in 1:N])
-    push!(calls, :(st = NamedTuple{$names}((($(Tuple(st_symbols)...),)))))
+    push!(calls, :(st = (layers = NamedTuple{$names}((($(Tuple(st_symbols)...),))))))
     push!(calls, :(return tuple($(Tuple(y_symbols)...)), st))
     return Expr(:block, calls...)
 end
@@ -397,12 +397,12 @@ function PairwiseFusion(connection, layers...)
     return PairwiseFusion(connection, NamedTuple{names}(layers))
 end
 
-function (m::PairwiseFusion)(x, ps::Union{ComponentArray, NamedTuple}, st::NamedTuple)
+function (m::PairwiseFusion)(x, ps::VALID_PARAMETER_TYPES, st::NamedTuple)
     return applypairwisefusion(m.layers, m.connection, x, ps, st)
 end
 
 @generated function applypairwisefusion(layers::NamedTuple{names}, connection::C, x::T,
-                                        ps::Union{ComponentArray, NamedTuple},
+                                        ps::VALID_PARAMETER_TYPES,
                                         st::NamedTuple) where {names, C, T}
     N = length(names)
     y_symbols = [gensym() for _ in 1:(N + 1)]
@@ -411,11 +411,11 @@ end
     calls = [:($(y_symbols[N + 1]) = $(getinput(1)))]
     append!(calls,
             [:(($(y_symbols[i]), $(st_symbols[i])) = layers[$i]($(y_symbols[N + 1]),
-                                                                ps.$(names[i]),
-                                                                st.$(names[i]));
+                                                                ps.layers.$(names[i]),
+                                                                st.layers.$(names[i]));
                $(y_symbols[N + 1]) = connection($(y_symbols[i]), $(getinput(i + 1))))
              for i in 1:N])
-    push!(calls, :(st = NamedTuple{$names}((($(Tuple(st_symbols)...),)))))
+    push!(calls, :(st = (layers = NamedTuple{$names}((($(Tuple(st_symbols)...),))))))
     push!(calls, :(return $(y_symbols[N + 1]), st))
     return Expr(:block, calls...)
 end
@@ -465,11 +465,7 @@ Performs a few optimizations to generate reasonable architectures. Can be disabl
 ## Example
 
 ```julia
-c = Chain(
-    Dense(2, 3, relu),
-    BatchNorm(3),
-    Dense(3, 2)
-)
+c = Chain(Dense(2, 3, relu), BatchNorm(3), Dense(3, 2))
 ```
 """
 struct Chain{T} <: AbstractExplicitContainerLayer{(:layers,)}
@@ -494,7 +490,7 @@ function flatten_model(layers::Union{AbstractVector, Tuple})
         if f isa Tuple || f isa AbstractVector
             append!(new_layers, f)
         elseif f isa Function
-            if !hasmethod(f, (Any, Union{ComponentArray, NamedTuple}, NamedTuple))
+            if !hasmethod(f, (Any, VALID_PARAMETER_TYPES, NamedTuple))
                 if f === identity
                     continue
                 else
@@ -516,23 +512,26 @@ end
 
 flatten_model(x) = x
 
-function (c::Chain)(x, ps::Union{ComponentArray, NamedTuple}, st::NamedTuple)
-    applychain(c.layers, x, ps, st)
+function (c::Chain)(x, ps::VALID_PARAMETER_TYPES, st::NamedTuple)
+    applychain(c.layers, x, ps, st.layers)
 end
 
 @generated function applychain(layers::NamedTuple{fields}, x,
-                               ps::Union{ComponentArray, NamedTuple},
+                               ps::VALID_PARAMETER_TYPES,
                                st::NamedTuple{fields}) where {fields}
     N = length(fields)
     x_symbols = [gensym() for _ in 1:N]
     st_symbols = [gensym() for _ in 1:N]
-    calls = [:(($(x_symbols[1]), $(st_symbols[1])) = layers[1](x, ps.layer_1, st.layer_1))]
+    calls = [
+        :(($(x_symbols[1]), $(st_symbols[1])) = layers[1](x, ps.layers.layer_1,
+                                                          st.layer_1)),
+    ]
     append!(calls,
             [:(($(x_symbols[i]), $(st_symbols[i])) = layers[$i]($(x_symbols[i - 1]),
-                                                                ps.$(fields[i]),
+                                                                ps.layers.$(fields[i]),
                                                                 st.$(fields[i])))
              for i in 2:N])
-    push!(calls, :(st = NamedTuple{$fields}((($(Tuple(st_symbols)...),)))))
+    push!(calls, :(st = (layers=NamedTuple{$fields}((($(Tuple(st_symbols)...),))),)))
     push!(calls, :(return $(x_symbols[N]), st))
     return Expr(:block, calls...)
 end
@@ -616,19 +615,19 @@ end
 statelength(d::Dense) = 0
 
 @inline function (d::Dense{false})(x::AbstractVecOrMat,
-                                   ps::Union{ComponentArray, NamedTuple},
+                                   ps::VALID_PARAMETER_TYPES,
                                    st::NamedTuple)
     return applyactivation(d.activation, ps.weight * x), st
 end
 
 @inline function (d::Dense{false, typeof(identity)})(x::AbstractVecOrMat,
-                                                     ps::Union{ComponentArray, NamedTuple},
+                                                     ps::VALID_PARAMETER_TYPES,
                                                      st::NamedTuple)
     return ps.weight * x, st
 end
 
 @inline function (d::Dense{false})(x::AbstractArray,
-                                   ps::Union{ComponentArray, NamedTuple},
+                                   ps::VALID_PARAMETER_TYPES,
                                    st::NamedTuple)
     sz = size(x)
     x_reshaped = reshape(x, sz[1], :)
@@ -637,36 +636,36 @@ end
 end
 
 @inline function (d::Dense{false, typeof(identity)})(x::AbstractArray,
-                                                     ps::Union{ComponentArray, NamedTuple},
+                                                     ps::VALID_PARAMETER_TYPES,
                                                      st::NamedTuple)
     sz = size(x)
     x_reshaped = reshape(x, sz[1], :)
     return reshape(ps.weight * x_reshaped, d.out_dims, sz[2:end]...), st
 end
 
-@inline function (d::Dense{true})(x::AbstractVector, ps::Union{ComponentArray, NamedTuple},
+@inline function (d::Dense{true})(x::AbstractVector, ps::VALID_PARAMETER_TYPES,
                                   st::NamedTuple)
     return applyactivation(d.activation, elementwise_add(ps.weight * x, vec(ps.bias))), st
 end
 
 @inline function (d::Dense{true, typeof(identity)})(x::AbstractVector,
-                                                    ps::Union{ComponentArray, NamedTuple},
+                                                    ps::VALID_PARAMETER_TYPES,
                                                     st::NamedTuple)
     return elementwise_add(ps.weight * x, vec(ps.bias)), st
 end
 
-@inline function (d::Dense{true})(x::AbstractMatrix, ps::Union{ComponentArray, NamedTuple},
+@inline function (d::Dense{true})(x::AbstractMatrix, ps::VALID_PARAMETER_TYPES,
                                   st::NamedTuple)
     return applyactivation(d.activation, elementwise_add(ps.weight * x, ps.bias)), st
 end
 
 @inline function (d::Dense{true, typeof(identity)})(x::AbstractMatrix,
-                                                    ps::Union{ComponentArray, NamedTuple},
+                                                    ps::VALID_PARAMETER_TYPES,
                                                     st::NamedTuple)
     return elementwise_add(ps.weight * x, ps.bias), st
 end
 
-@inline function (d::Dense{true})(x::AbstractArray, ps::Union{ComponentArray, NamedTuple},
+@inline function (d::Dense{true})(x::AbstractArray, ps::VALID_PARAMETER_TYPES,
                                   st::NamedTuple)
     sz = size(x)
     x_reshaped = reshape(x, sz[1], :)
@@ -676,7 +675,7 @@ end
 end
 
 @inline function (d::Dense{true, typeof(identity)})(x::AbstractArray,
-                                                    ps::Union{ComponentArray, NamedTuple},
+                                                    ps::VALID_PARAMETER_TYPES,
                                                     st::NamedTuple)
     sz = size(x)
     x_reshaped = reshape(x, sz[1], :)
@@ -753,25 +752,25 @@ end
 parameterlength(d::Scale{bias}) where {bias} = (1 + bias) * prod(d.dims)
 statelength(d::Scale) = 0
 
-function (d::Scale{true})(x::AbstractArray, ps::Union{ComponentArray, NamedTuple},
+function (d::Scale{true})(x::AbstractArray, ps::VALID_PARAMETER_TYPES,
                           st::NamedTuple)
     return applyactivation(d.activation,
                            elementwise_add(elementwise_mul(ps.weight, x), ps.bias)), st
 end
 
 function (d::Scale{true, typeof(identity)})(x::AbstractArray,
-                                            ps::Union{ComponentArray, NamedTuple},
+                                            ps::VALID_PARAMETER_TYPES,
                                             st::NamedTuple)
     return elementwise_add(elementwise_mul(ps.weight, x), ps.bias), st
 end
 
-function (d::Scale{false})(x::AbstractArray, ps::Union{ComponentArray, NamedTuple},
+function (d::Scale{false})(x::AbstractArray, ps::VALID_PARAMETER_TYPES,
                            st::NamedTuple)
     return applyactivation(d.activation, elementwise_mul(ps.weight, x)), st
 end
 
 function (d::Scale{false, typeof(identity)})(x::AbstractArray,
-                                             ps::Union{ComponentArray, NamedTuple},
+                                             ps::VALID_PARAMETER_TYPES,
                                              st::NamedTuple)
     return elementwise_mul(ps.weight, x), st
 end

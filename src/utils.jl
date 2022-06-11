@@ -156,7 +156,7 @@ end
 ComponentArrays.recursive_length(nt::NamedTuple{(), Tuple{}}) = 0
 
 # Return Nothing if field not present
-function safe_getproperty(x::Union{ComponentArray, NamedTuple}, k::Symbol)
+function safe_getproperty(x::VALID_PARAMETER_TYPES, k::Symbol)
     k ∈ propertynames(x) && return getproperty(x, k)
     return nothing
 end

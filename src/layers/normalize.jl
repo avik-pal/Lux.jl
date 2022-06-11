@@ -379,7 +379,7 @@ end
 
 initialstates(rng::AbstractRNG, wn::WeightNorm) = initialstates(rng, wn.layer)
 
-function (wn::WeightNorm)(x, ps::Union{ComponentArray, NamedTuple}, s::NamedTuple)
+function (wn::WeightNorm)(x, ps::VALID_PARAMETER_TYPES, s::NamedTuple)
     _ps = get_normalized_parameters(wn, wn.dims, ps.normalized)
     return wn.layer(x, merge(_ps, ps.unnormalized), s)
 end

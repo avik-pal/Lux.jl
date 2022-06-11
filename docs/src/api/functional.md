@@ -11,3 +11,9 @@ CurrentModule = Lux
 Lux.dropout
 Lux.normalization
 ```
+
+## Index
+
+```@index
+Pages = ["functional.md"]
+```

@@ -92,14 +92,14 @@ function parameterlength(c::Conv{N, bias}) where {N, bias}
 end
 
 @inline function (c::Conv{N, false})(x::AbstractArray,
-                                     ps::Union{ComponentArray, NamedTuple},
+                                     ps::VALID_PARAMETER_TYPES,
                                      st::NamedTuple) where {N}
     cdims = DenseConvDims(x, ps.weight; stride=c.stride, padding=c.pad, dilation=c.dilation,
                           groups=c.groups)
     return applyactivation(c.activation, conv_wrapper(x, ps.weight, cdims)), st
 end
 
-@inline function (c::Conv{N, true})(x::AbstractArray, ps::Union{ComponentArray, NamedTuple},
+@inline function (c::Conv{N, true})(x::AbstractArray, ps::VALID_PARAMETER_TYPES,
                                     st::NamedTuple) where {N}
     cdims = DenseConvDims(x, ps.weight; stride=c.stride, padding=c.pad, dilation=c.dilation,
                           groups=c.groups)

@@ -21,6 +21,7 @@ using Optimisers
 using Requires
 
 const use_cuda = Ref{Union{Nothing, Bool}}(nothing)
+const VALID_PARAMETER_TYPES = Union{ComponentArray, NamedTuple}
 
 # Data Transfer Utilities
 include("adapt.jl")
@@ -44,6 +45,9 @@ include("autodiff.jl")
 function __init__()
     @require Flux="587475ba-b771-5e3f-ad9e-33799f191a9c" include("transform.jl")
 end
+# Experimental Features
+## DON'T EXPORT THESE FUNCTIONS!!!
+include("contrib/layerdef.jl")
 
 # Data Transfer
 export cpu, gpu

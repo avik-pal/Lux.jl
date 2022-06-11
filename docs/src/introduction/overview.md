@@ -37,3 +37,6 @@ We provide 2 abstract layers:
   * *All layers are deterministic* given the parameter and state -- if the layer is supposed to be stochastic (say `Dropout`), the state must contain a seed which is then updated after the function call.
 * **Easy Parameter Manipulation** -- Wondering why Flux doesn't have `WeightNorm`, `SpectralNorm`, etc. The implicit parameter handling makes it extremely hard to pass parameters around without mutations which AD systems don't like. With Lux implementing them is outright simple.
 
+# When not to use Lux?
+
+

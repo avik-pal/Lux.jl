@@ -4,7 +4,7 @@ For Style we try to follow [SciMLStyle](https://github.com/SciML/SciMLStyle). Th
 
 ## Mutability
 
-See https://github.com/SciML/SciMLStyle#out-of-place-and-immutability-is-preferred-when-sufficient-performant for reference. This is strictly enforced, i.e. all layers/functions provided as part of the external API must be pure functions, even if they come with a performance penalty.
+See [SciMLStyle](https://github.com/SciML/SciMLStyle#out-of-place-and-immutability-is-preferred-when-sufficient-performant) for reference. This is strictly enforced, i.e. all layers/functions provided as part of the external API must be pure functions, even if they come with a performance penalty.
 
 ## Branching -- Generated Functions
 
@@ -16,4 +16,3 @@ Zygote doesn't like branches in code. Like it or not, we are stuck with it for t
   * Layers behaving differently during training and inference -- we know at compile-time whether a layer is being run in training/inference mode via `istraining(st)`.
   * Composite Layers relying on a variable number of internal layers -- Again we know the length of the number of internal layers at compile time. Hence we can manually unroll the loops. See [`Parallel`](@ref), [`Chain`](@ref), etc.
 * Pass around `Val` in state. `Flux.jl` sets `training` to be `(:auto, true, false)`. Hence, which branch will be evaluated, will have to be determined at runtime time (*bad*). Instead if we pass `Val(true)`, we will be able to specialize functions directly based on `true`, `false`, etc. ensuring there is no runtime cost for these operations. See [`BatchNorm`](@ref), [`Dropout`](@ref), etc.
-

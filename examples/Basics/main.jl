@@ -209,7 +209,7 @@ Random.seed!(rng, 0)
 
 # Let us initialize the parameters and states (in this case it is empty) for the model
 ps, st = Lux.setup(rng, model)
-ps = ps |> ComponentArray
+ps = ps |> Lux.ComponentArray
 
 # Set problem dimensions.
 n_samples = 20
