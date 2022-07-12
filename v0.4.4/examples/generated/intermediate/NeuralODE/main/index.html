@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>MNIST NeuralODE Classification · Lux</title><script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GYTEVTZ2"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q8GYTEVTZ2', {'page_path': location.pathname + location.search + location.hash});
+</script><script data-outdated-warner src="../../../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.044/juliamono.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../../assets/documenter.js"></script><script src="../../../../../siteinfo.js"></script><script src="../../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../../assets/themeswap.js"></script><link href="../../../../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../../">Lux</a></span></div><form class="docs-search" action="../../../../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../../../../">Lux: Explicitly Parameterized Neural Networks</a></li><li><span class="tocitem">Introduction</span><ul><li><a class="tocitem" href="../../../../../introduction/overview/">All about Lux</a></li><li><a class="tocitem" href="../../../../../introduction/ecosystem/">Ecosystem</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-3-1" type="checkbox"/><label class="tocitem" for="menuitem-3-1"><span class="docs-label">Beginner</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../beginner/Basics/main/">Julia &amp; Lux for the Uninitiated</a></li><li><a class="tocitem" href="../../../beginner/SimpleRNN/main/">Training a Simple LSTM</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox" checked/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Intermediate</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>MNIST NeuralODE Classification</a><ul class="internal"><li><a class="tocitem" href="#Package-Imports"><span>Package Imports</span></a></li><li><a class="tocitem" href="#Loading-MNIST"><span>Loading MNIST</span></a></li><li><a class="tocitem" href="#Define-the-Neural-ODE-Layer"><span>Define the Neural ODE Layer</span></a></li><li><a class="tocitem" href="#Create-and-Initialize-the-Neural-ODE-Layer"><span>Create and Initialize the Neural ODE Layer</span></a></li><li><a class="tocitem" href="#Define-Utility-Functions"><span>Define Utility Functions</span></a></li><li><a class="tocitem" href="#Training"><span>Training</span></a></li></ul></li><li><a class="tocitem" href="../../BayesianNN/main/">Bayesian Neural Network</a></li></ul></li><li><span class="tocitem">Advanced</span></li><li><a class="tocitem" href="../../../../">Additional Examples</a></li></ul></li><li><span class="tocitem">API</span><ul><li><a class="tocitem" href="../../../../../api/layers/">Layers</a></li><li><a class="tocitem" href="../../../../../api/functional/">Functional</a></li><li><a class="tocitem" href="../../../../../api/core/">Core</a></li><li><a class="tocitem" href="../../../../../api/utilities/">Utilities</a></li></ul></li><li><span class="tocitem">Design Docs</span><ul><li><a class="tocitem" href="../../../../../design/documentation/">Documentation</a></li><li><a class="tocitem" href="../../../../../design/recurrent/">Recurrent Neural Networks</a></li><li><a class="tocitem" href="../../../../../design/core/">Add new functionality to Lux</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Intermediate</a></li><li class="is-active"><a href>MNIST NeuralODE Classification</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>MNIST NeuralODE Classification</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/avik-pal/Lux.jl/blob/main/examples/NeuralODE/main.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="MNIST-Classification-using-Neural-ODEs"><a class="docs-heading-anchor" href="#MNIST-Classification-using-Neural-ODEs">MNIST Classification using Neural ODEs</a><a id="MNIST-Classification-using-Neural-ODEs-1"></a><a class="docs-heading-anchor-permalink" href="#MNIST-Classification-using-Neural-ODEs" title="Permalink"></a></h1><h2 id="Package-Imports"><a class="docs-heading-anchor" href="#Package-Imports">Package Imports</a><a id="Package-Imports-1"></a><a class="docs-heading-anchor-permalink" href="#Package-Imports" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Lux
+using ComponentArrays, CUDA, DiffEqSensitivity, NNlib, Optimisers, OrdinaryDiffEq, Random,
+      Statistics, Zygote
+import MLDatasets: MNIST
+import MLDataUtils: convertlabel, LabelEnc
+import MLUtils: DataLoader, splitobs
+CUDA.allowscalar(false)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">  Activating project at `~/work/Lux.jl/Lux.jl/examples`</code></pre><h2 id="Loading-MNIST"><a class="docs-heading-anchor" href="#Loading-MNIST">Loading MNIST</a><a id="Loading-MNIST-1"></a><a class="docs-heading-anchor-permalink" href="#Loading-MNIST" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Use MLDataUtils LabelEnc for natural onehot conversion
+function onehot(labels_raw)
+    convertlabel(LabelEnc.OneOfK, labels_raw, LabelEnc.NativeLabels(collect(0:9)))
+end
+
+function loadmnist(batchsize, train_split)
+    # Load MNIST: Only 1500 for demonstration purposes
+    N = 1500
+    imgs = MNIST.traintensor(1:N)
+    labels_raw = MNIST.trainlabels(1:N)
+
+    # Process images into (H,W,C,BS) batches
+    x_data = Float32.(reshape(imgs, size(imgs, 1), size(imgs, 2), 1, size(imgs, 3)))
+    y_data = onehot(labels_raw)
+    (x_train, y_train), (x_test, y_test) = splitobs((x_data, y_data); at=train_split)
+
+    return (
+            # Use DataLoader to automatically minibatch and shuffle the data
+            DataLoader(collect.((x_train, y_train)); batchsize=batchsize, shuffle=true),
+            # Don&#39;t shuffle the test data
+            DataLoader(collect.((x_test, y_test)); batchsize=batchsize, shuffle=false))
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">loadmnist (generic function with 1 method)</code></pre><h2 id="Define-the-Neural-ODE-Layer"><a class="docs-heading-anchor" href="#Define-the-Neural-ODE-Layer">Define the Neural ODE Layer</a><a id="Define-the-Neural-ODE-Layer-1"></a><a class="docs-heading-anchor-permalink" href="#Define-the-Neural-ODE-Layer" title="Permalink"></a></h2><p>The NeuralODE is a ContainerLayer. It stores a <code>model</code> and the parameters and states of the NeuralODE is same as that of the underlying model.</p><pre><code class="language-julia hljs">struct NeuralODE{M &lt;: Lux.AbstractExplicitLayer, So, Se, T, K} &lt;:
+       Lux.AbstractExplicitContainerLayer{(:model,)}
+    model::M
+    solver::So
+    sensealg::Se
+    tspan::T
+    kwargs::K
+end
+
+function NeuralODE(model::Lux.AbstractExplicitLayer;
+                   solver=Tsit5(),
+                   sensealg=InterpolatingAdjoint(; autojacvec=ZygoteVJP()),
+                   tspan=(0.0f0, 1.0f0),
+                   kwargs...)
+    return NeuralODE(model, solver, sensealg, tspan, kwargs)
+end
+
+function (n::NeuralODE)(x, ps, st)
+    function dudt(u, p, t)
+        u_, st = n.model(u, p, st)
+        return u_
+    end
+    prob = ODEProblem{false}(ODEFunction{false}(dudt), x, n.tspan, ps)
+    return solve(prob, n.solver; sensealg=n.sensealg, n.kwargs...), st
+end
+
+function diffeqsol_to_array(x::ODESolution{T, N, &lt;:AbstractVector{&lt;:CuArray}}) where {T, N}
+    dropdims(gpu(x); dims=3)
+end
+diffeqsol_to_array(x::ODESolution) = dropdims(Array(x); dims=3)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">diffeqsol_to_array (generic function with 2 methods)</code></pre><h2 id="Create-and-Initialize-the-Neural-ODE-Layer"><a class="docs-heading-anchor" href="#Create-and-Initialize-the-Neural-ODE-Layer">Create and Initialize the Neural ODE Layer</a><a id="Create-and-Initialize-the-Neural-ODE-Layer-1"></a><a class="docs-heading-anchor-permalink" href="#Create-and-Initialize-the-Neural-ODE-Layer" title="Permalink"></a></h2><pre><code class="language-julia hljs">function create_model()
+    # Construct the Neural ODE Model
+    model = Chain(FlattenLayer(),
+                  Dense(784, 20, tanh),
+                  NeuralODE(Chain(Dense(20, 10, tanh), Dense(10, 10, tanh),
+                                  Dense(10, 20, tanh));
+                            save_everystep=false,
+                            reltol=1.0f-3,
+                            abstol=1.0f-3,
+                            save_start=false),
+                  diffeqsol_to_array,
+                  Dense(20, 10))
+
+    rng = Random.default_rng()
+    Random.seed!(rng, 0)
+
+    ps, st = Lux.setup(rng, model)
+    ps = ComponentArray(ps) |&gt; gpu
+    st = st |&gt; gpu
+
+    return model, ps, st
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">create_model (generic function with 1 method)</code></pre><h2 id="Define-Utility-Functions"><a class="docs-heading-anchor" href="#Define-Utility-Functions">Define Utility Functions</a><a id="Define-Utility-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Define-Utility-Functions" title="Permalink"></a></h2><pre><code class="language-julia hljs">get_class(x) = argmax.(eachcol(x))
+
+logitcrossentropy(ŷ, y) = mean(-sum(y .* logsoftmax(ŷ); dims=1))
+
+function loss(x, y, model, ps, st)
+    ŷ, st = model(x, ps, st)
+    return logitcrossentropy(ŷ, y), st
+end
+
+function accuracy(model, ps, st, dataloader)
+    total_correct, total = 0, 0
+    st = Lux.testmode(st)
+    iterator = CUDA.functional() ? CuIterator(dataloader) : dataloader
+    for (x, y) in iterator
+        target_class = get_class(cpu(y))
+        predicted_class = get_class(cpu(model(x, ps, st)[1]))
+        total_correct += sum(target_class .== predicted_class)
+        total += length(target_class)
+    end
+    return total_correct / total
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">accuracy (generic function with 1 method)</code></pre><h2 id="Training"><a class="docs-heading-anchor" href="#Training">Training</a><a id="Training-1"></a><a class="docs-heading-anchor-permalink" href="#Training" title="Permalink"></a></h2><pre><code class="language-julia hljs">function train()
+    model, ps, st = create_model()
+
+    # Training
+    train_dataloader, test_dataloader = loadmnist(128, 0.9)
+
+    opt = Optimisers.ADAM(0.001f0)
+    st_opt = Optimisers.setup(opt, ps)
+
+    ### Warmup the Model
+    img, lab = gpu(train_dataloader.data[1][:, :, :, 1:1]),
+               gpu(train_dataloader.data[2][:, 1:1])
+    loss(img, lab, model, ps, st)
+    (l, _), back = pullback(p -&gt; loss(img, lab, model, p, st), ps)
+    back((one(l), nothing))
+
+    ### Lets train the model
+    nepochs = 9
+    for epoch in 1:nepochs
+        stime = time()
+        iterator = CUDA.functional() ? CuIterator(train_dataloader) : train_dataloader
+        for (x, y) in iterator
+            (l, _), back = pullback(p -&gt; loss(x, y, model, p, st), ps)
+            gs = back((one(l), nothing))[1]
+            st_opt, ps = Optimisers.update(st_opt, ps, gs)
+        end
+        ttime = time() - stime
+
+        println(&quot;[$epoch/$nepochs] \t Time $(round(ttime; digits=2))s \t Training Accuracy: &quot; *
+                &quot;$(round(accuracy(model, ps, st, train_dataloader) * 100; digits=2))% \t &quot; *
+                &quot;Test Accuracy: $(round(accuracy(model, ps, st, test_dataloader) * 100; digits=2))%&quot;)
+    end
+end
+
+train()</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Info: The GPU function is being called but the GPU is not accessible.
+└ Defaulting back to the CPU. (No action is required if you want to run on the CPU).
+[1/9] 	 Time 2.26s 	 Training Accuracy: 51.7% 	 Test Accuracy: 44.0%
+[2/9] 	 Time 0.17s 	 Training Accuracy: 71.04% 	 Test Accuracy: 66.67%
+[3/9] 	 Time 0.17s 	 Training Accuracy: 78.07% 	 Test Accuracy: 72.0%
+[4/9] 	 Time 0.11s 	 Training Accuracy: 79.93% 	 Test Accuracy: 73.33%
+[5/9] 	 Time 0.15s 	 Training Accuracy: 82.89% 	 Test Accuracy: 78.0%
+[6/9] 	 Time 0.14s 	 Training Accuracy: 84.52% 	 Test Accuracy: 78.67%
+[7/9] 	 Time 0.16s 	 Training Accuracy: 85.78% 	 Test Accuracy: 80.67%
+[8/9] 	 Time 0.11s 	 Training Accuracy: 86.81% 	 Test Accuracy: 81.33%
+[9/9] 	 Time 0.11s 	 Training Accuracy: 87.48% 	 Test Accuracy: 82.67%</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../../beginner/SimpleRNN/main/">« Training a Simple LSTM</a><a class="docs-footer-nextpage" href="../../BayesianNN/main/">Bayesian Neural Network »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Wednesday 8 June 2022 18:16">Wednesday 8 June 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

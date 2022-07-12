@@ -1,0 +1,2012 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Lux.jl">
+      
+      
+        <meta name="author" content="Avik Pal">
+      
+      
+        <link rel="canonical" href="http://lux.csail.mit.edu/api/layers/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+    
+    
+      
+        <title>Layers - Lux.jl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Lato";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/custom.css">
+    
+      <link rel="stylesheet" href="../../assets/Documenter.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#containers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Lux.jl" class="md-header__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lux.jl
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Layers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lux.jl" class="md-nav__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Lux.jl
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Lux.jl: Explicitly Parameterized Neural Networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/overview/" class="md-nav__link">
+        All about Lux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/ecosystem/" class="md-nav__link">
+        Ecosystem
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Beginner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beginner" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Beginner
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/generated/beginner/Basics/main/" class="md-nav__link">
+        Julia & Lux for the Uninitiated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/generated/beginner/SimpleRNN/main/" class="md-nav__link">
+        Training a Simple LSTM
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Intermediate
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Intermediate" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Intermediate
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/generated/intermediate/NeuralODE/main/" class="md-nav__link">
+        MNIST Classification using NeuralODE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/generated/intermediate/BayesianNN/main/" class="md-nav__link">
+        Bayesian Neural Network
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/examples/" class="md-nav__link">
+        Other Examples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../manual/migrate_from_flux/" class="md-nav__link">
+        Migrating from Flux to Lux
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Layers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Layers
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    Containers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convolutional-layers" class="md-nav__link">
+    Convolutional Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dropout-layers" class="md-nav__link">
+    Dropout Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pooling-layers" class="md-nav__link">
+    Pooling Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recurrent-layers" class="md-nav__link">
+    Recurrent Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-layers" class="md-nav__link">
+    Linear Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#misc-helper-layers" class="md-nav__link">
+    Misc. Helper Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalization-layers" class="md-nav__link">
+    Normalization Layers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upsampling" class="md-nav__link">
+    Upsampling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    Index
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functional/" class="md-nav__link">
+        Functional
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        Core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/" class="md-nav__link">
+        Utilities
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Frameworks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Frameworks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Frameworks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lib/Boltz/" class="md-nav__link">
+        Boltz.jl
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Development Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Development Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devdocs/style_guide/" class="md-nav__link">
+        Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devdocs/layer_implementation/" class="md-nav__link">
+        Layer Implementation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Layers</h1>
+
+<p><a id='Containers'></a></p>
+<p><a id='Containers-1'></a></p>
+<h2 id="containers">Containers<a class="headerlink" href="#containers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.BranchLayer' href='#Lux.BranchLayer'>#</a>
+<strong><code>Lux.BranchLayer</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">BranchLayer</span><span class="p">(</span><span class="n">layers</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Takes an input <code>x</code> and passes it through all the <code>layers</code> and returns a tuple of the outputs.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>layers</code>: A list of <code>N</code> Lux layers</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Will be directly passed to each of the <code>layers</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Tuple: <code>(layer_1(x), layer_2(x), ..., layer_N(x))</code></li>
+<li>Updated state of the <code>layers</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Parameters of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>Comparison with <a href="./#Lux.Parallel"><code>Parallel</code></a></strong></p>
+<p>This is slightly different from <code>Parallel(nothing, layers...)</code></p>
+<ul>
+<li>If the input is a tuple, <code>Parallel</code> will pass each element individually to each layer</li>
+<li><code>BranchLayer</code> essentially assumes 1 input comes in and is branched out into <code>N</code> outputs</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>An easy way to replicate an input to an NTuple is to do</p>
+<div class="highlight"><pre><span></span><code><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BranchLayer</span><span class="p">(</span><span class="n">NoOpLayer</span><span class="p">(),</span><span class="w"> </span><span class="n">NoOpLayer</span><span class="p">(),</span><span class="w"> </span><span class="n">NoOpLayer</span><span class="p">())</span><span class="w"></span>
+</code></pre></div>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L274-L318' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.Chain' href='#Lux.Chain'>#</a>
+<strong><code>Lux.Chain</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Chain</span><span class="p">(</span><span class="n">layers</span><span class="o">...</span><span class="p">;</span><span class="w"> </span><span class="n">disable_optimizations</span><span class="o">::</span><span class="kt">Bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Collects multiple layers / functions to be called in sequence on a given input.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>layers</code>: A list of <code>N</code> Lux layers</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>disable_optimizations</code>: Prevents any structural optimization</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<p>Input <code>x</code> is passed sequentially to each layer, and must conform to the input requirements of the internal layers.</p>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output after sequentially applying all the layers to <code>x</code></li>
+<li>Updated model states</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Parameters of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>Optimizations</strong></p>
+<p>Performs a few optimizations to generate reasonable architectures. Can be disabled using keyword argument <code>disable_optimizations</code>.</p>
+<ul>
+<li>All sublayers are recursively optimized.</li>
+<li>If a function <code>f</code> is passed as a layer and it doesn't take 3 inputs, it is converted to a WrappedFunction(<code>f</code>) which takes only one input.</li>
+<li>If the layer is a Chain, it is flattened.</li>
+<li><a href="./#Lux.NoOpLayer"><code>NoOpLayer</code></a>s are removed.</li>
+<li>If there is only 1 layer (left after optimizations), then it is returned without the <code>Chain</code> wrapper.</li>
+<li>If there are no layers (left after optimizations), a <a href="./#Lux.NoOpLayer"><code>NoOpLayer</code></a> is returned.</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Chain</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">relu</span><span class="p">),</span><span class="w"> </span><span class="n">BatchNorm</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
+</code></pre></div>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L436-L488' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.PairwiseFusion' href='#Lux.PairwiseFusion'>#</a>
+<strong><code>Lux.PairwiseFusion</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">PairwiseFusion</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="w"> </span><span class="n">layers</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>x1 → layer1 → y1 ↘
+                  connection → layer2 → y2 ↘
+              x2 ↗                          connection → layer3 → y3
+                                        x3 ↗
+</code></pre></div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>connection</code>: Takes 2 inputs and combines them</li>
+<li><code>layers</code>: <a href="../core/#Lux.AbstractExplicitLayer"><code>AbstractExplicitLayer</code></a>s</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<p>Layer behaves differently based on input type:</p>
+<ol>
+<li>If the input <code>x</code> is a tuple of length <code>N + 1</code>, then the <code>layers</code> must be a tuple of length <code>N</code>. The computation is as follows</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">N</span><span class="w"></span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">layers</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">y</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>Any other kind of input</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">N</span><span class="w"></span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">layers</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">y</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Returns</strong></p>
+<ul>
+<li>See Inputs section for how the return value is computed</li>
+<li>Updated model state for all the contained layers</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Parameters of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L349-L401' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.Parallel' href='#Lux.Parallel'>#</a>
+<strong><code>Lux.Parallel</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Parallel</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="w"> </span><span class="n">layers</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Create a layer which passes an input to each path in <code>layers</code>, before reducing the output with <code>connection</code>.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>layers</code>: A list of <code>N</code> Lux layers</li>
+<li><code>connection</code>: An <code>N</code>-argument function that is called after passing the input through each layer. If <code>connection = nothing</code>, we return a tuple <code>Parallel(nothing, f, g)(x, y) = (f(x), g(y))</code></li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: If <code>x</code> is not a tuple, then return is computed as <code>connection([l(x) for l in layers]...)</code>. Else one is passed to each layer, thus <code>Parallel(+, f, g)(x, y) = f(x) + g(y)</code>.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>See the Inputs section for how the output is computed</li>
+<li>Updated state of the <code>layers</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Parameters of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
+</ul>
+<p>See also <a href="./#Lux.SkipConnection"><code>SkipConnection</code></a> which is <code>Parallel</code> with one identity.</p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L199-L234' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.SkipConnection' href='#Lux.SkipConnection'>#</a>
+<strong><code>Lux.SkipConnection</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SkipConnection</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span><span class="w"> </span><span class="n">connection</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Create a skip connection which consists of a layer or <a href="./#Lux.Chain"><code>Chain</code></a> of consecutive layers and a shortcut connection linking the block's input to the output through a user-supplied 2-argument callable. The first argument to the callable will be propagated through the given <code>layer</code> while the second is the unchanged, "skipped" input.</p>
+<p>The simplest "ResNet"-type connection is just <code>SkipConnection(layer, +)</code>.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>layer</code>: Layer or <code>Chain</code> of layers to be applied to the input</li>
+<li><code>connection</code>: A 2-argument function that takes <code>layer(input)</code> and the input</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Will be passed directly to <code>layer</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of <code>connection(layer(input), input)</code></li>
+<li>Updated state of <code>layer</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Parameters of <code>layer</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>States of <code>layer</code></li>
+</ul>
+<p>See <a href="./#Lux.Parallel"><code>Parallel</code></a> for a more general implementation.</p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L154-L187' class='documenter-source'>source</a><br></p>
+<p><a id='Convolutional-Layers'></a></p>
+<p><a id='Convolutional-Layers-1'></a></p>
+<h2 id="convolutional-layers">Convolutional Layers<a class="headerlink" href="#convolutional-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.Conv' href='#Lux.Conv'>#</a>
+<strong><code>Lux.Conv</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Conv</span><span class="p">(</span><span class="n">k</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">{</span><span class="kt">N</span><span class="p">,</span><span class="kt">Integer</span><span class="p">},</span><span class="w"> </span><span class="p">(</span><span class="n">in_chs</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_chs</span><span class="p">)</span><span class="o">::</span><span class="kt">Pair</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">Integer</span><span class="p">,</span><span class="o">&lt;:</span><span class="kt">Integer</span><span class="p">},</span><span class="w"></span>
+<span class="w">     </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">groups</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Standard convolutional layer.</p>
+<p>Image data should be stored in WHCN order (width, height, channels, batch). In other words, a <code>100 × 100</code> RGB image would be a <code>100 × 100 × 3 × 1</code> array, and a batch of 50 would be a <code>100 × 100 × 3 × 50</code> array. This has <code>N = 2</code> spatial dimensions, and needs a kernel size like <code>(5, 5)</code>, a 2-tuple of integers. To take convolutions along <code>N</code> feature dimensions, this layer expects as input an array with <code>ndims(x) == N + 2</code>, where <code>size(x, N + 1) == in_chs</code> is the number of input channels, and <code>size(x, ndims(x))</code> is the number of observations in a batch.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Frameworks like <a href="https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html#torch.nn.Conv2d"><code>Pytorch</code></a> perform cross-correlation in their convolution layers</p>
+</div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>k</code>: Tuple of integers specifying the size of the convolutional kernel. Eg, for 2D      convolutions <code>length(k) == 2</code></li>
+<li><code>in_chs</code>: Number of input channels</li>
+<li><code>out_chs</code>: Number of input and output channels</li>
+<li><code>activation</code>: Activation Function</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>init_weight</code>: Controls the initialization of the weight parameter</li>
+<li><code>stride</code>: Should each be either single integer, or a tuple with <code>N</code> integers</li>
+<li><code>dilation</code>: Should each be either single integer, or a tuple with <code>N</code> integers</li>
+<li>
+<p><code>pad</code>: Specifies the number of elements added to the borders of the data array. It can        be</p>
+<ul>
+<li>a single integer for equal padding all around,</li>
+<li>a tuple of <code>N</code> integers, to apply the same padding at begin/end of each spatial dimension,</li>
+<li>a tuple of <code>2*N</code> integers, for asymmetric padding, or</li>
+<li>the singleton <code>SamePad()</code>, to calculate padding such that <code>size(output,d) == size(x,d) / stride</code> (possibly rounded) for each spatial dimension.</li>
+<li><code>groups</code>: Expected to be an <code>Int</code>. It specifies the number of groups to divide a           convolution into (set <code>groups = in_chs</code> for Depthwise Convolutions). <code>in_chs</code>           and <code>out_chs</code> must be divisible by <code>groups</code>.</li>
+<li><code>bias</code>: The initial bias vector is all zero by default. Trainable bias can be disabled         entirely by setting this to <code>false</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Data satisfying <code>ndims(x) == N + 2 &amp;&amp; size(x, N - 1) == in_chs</code>, i.e.      <code>size(x) = (I_N, ..., I_1, C_in, N)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of the convolution <code>y</code> of size <code>(O_N, ..., O_1, C_out, N)</code> where</li>
+</ul>
+<div class="arithmatex">\[
+O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] \times (k[i] - 1)}{stride[i]} + 1\right)
+\]</div>
+<ul>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight</code>: Convolution kernel</li>
+<li><code>bias</code>: Bias (present if <code>bias=true</code>)</li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L1' class='documenter-source'>source</a><br></p>
+<p><a id='Dropout-Layers'></a></p>
+<p><a id='Dropout-Layers-1'></a></p>
+<h2 id="dropout-layers">Dropout Layers<a class="headerlink" href="#dropout-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.Dropout' href='#Lux.Dropout'>#</a>
+<strong><code>Lux.Dropout</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="n">dims</span><span class="o">=:</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Dropout layer.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>p</code>: Probability of Dropout (if <code>p = 0</code> then <a href="./#Lux.NoOpLayer"><code>NoOpLayer</code></a> is returned)</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li>To apply dropout along certain dimension(s), specify the <code>dims</code> keyword. e.g. <code>Dropout(p; dims = 3)</code> will randomly zero out entire channels on WHCN input (also called 2D dropout).</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Must be an AbstractArray</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>x</code> with dropout mask applied if <code>training=Val(true)</code> else just <code>x</code></li>
+<li>State with updated <code>rng</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li><code>rng</code>: Pseudo Random Number Generator</li>
+<li><code>training</code>: Used to check if training/inference mode</li>
+</ul>
+<p>Call <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> to switch to test mode.</p>
+<p>See also <a href="./#Lux.VariationalHiddenDropout"><code>VariationalHiddenDropout</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/dropout.jl#L1-L33' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.VariationalHiddenDropout' href='#Lux.VariationalHiddenDropout'>#</a>
+<strong><code>Lux.VariationalHiddenDropout</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">VariationalHiddenDropout</span><span class="p">(</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="n">dims</span><span class="o">=:</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>VariationalHiddenDropout layer. The only difference from Dropout is that the <code>mask</code> is retained until <a href="../core/#Lux.update_state"><code>Lux.update_state(l, :update_mask, Val(true))</code></a> is called.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>p</code>: Probability of Dropout (if <code>p = 0</code> then <a href="./#Lux.NoOpLayer"><code>NoOpLayer</code></a> is returned)</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li>To apply dropout along certain dimension(s), specify the <code>dims</code> keyword. e.g. <code>VariationalHiddenDropout(p; dims = 3)</code> will randomly zero out entire channels on WHCN input (also called 2D dropout).</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Must be an AbstractArray</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>x</code> with dropout mask applied if <code>training=Val(true)</code> else just <code>x</code></li>
+<li>State with updated <code>rng</code></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li><code>rng</code>: Pseudo Random Number Generator</li>
+<li><code>training</code>: Used to check if training/inference mode</li>
+<li><code>mask</code>: Dropout mask. Initilly set to nothing. After every run, contains the mask applied in that call</li>
+<li><code>update_mask</code>: Stores whether new mask needs to be generated in the current call</li>
+</ul>
+<p>Call <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> to switch to test mode.</p>
+<p>See also <a href="./#Lux.Dropout"><code>Dropout</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/dropout.jl#L62-L98' class='documenter-source'>source</a><br></p>
+<p><a id='Pooling-Layers'></a></p>
+<p><a id='Pooling-Layers-1'></a></p>
+<h2 id="pooling-layers">Pooling Layers<a class="headerlink" href="#pooling-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.AdaptiveMaxPool' href='#Lux.AdaptiveMaxPool'>#</a>
+<strong><code>Lux.AdaptiveMaxPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">AdaptiveMaxPool</span><span class="p">(</span><span class="n">out</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Adaptive Max Pooling layer. Calculates the necessary window size such that its output has <code>size(y)[1:N] == out</code>.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>out</code>: Size of the first <code>N</code> dimensions for the output</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Expects as input an array with <code>ndims(x) == N+2</code>, i.e. channel and batch dimensions, after the <code>N</code> feature dimensions, where <code>N = length(out)</code>.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of size <code>(out..., C, N)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a>.</p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L429-L450' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.AdaptiveMeanPool' href='#Lux.AdaptiveMeanPool'>#</a>
+<strong><code>Lux.AdaptiveMeanPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">AdaptiveMeanPool</span><span class="p">(</span><span class="n">out</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Adaptive Mean Pooling layer. Calculates the necessary window size such that its output has <code>size(y)[1:N] == out</code>.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>out</code>: Size of the first <code>N</code> dimensions for the output</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Expects as input an array with <code>ndims(x) == N+2</code>, i.e. channel and batch dimensions, after the <code>N</code> feature dimensions, where <code>N = length(out)</code>.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of size <code>(out..., C, N)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a>.</p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L465-L486' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.GlobalMaxPool' href='#Lux.GlobalMaxPool'>#</a>
+<strong><code>Lux.GlobalMaxPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">GlobalMaxPool</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+<p>Global Mean Pooling layer. Transforms (w,h,c,b)-shaped input into (1,1,c,b)-shaped output, by performing max pooling on the complete (w,h)-shaped feature maps.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Data satisfying <code>ndims(x) &gt; 2</code>, i.e. <code>size(x) = (I_N, ..., I_1, C, N)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of the pooling <code>y</code> of size <code>(1, ..., 1, C, N)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a>, <a href="./#Lux.GlobalMeanPool"><code>GlobalMeanPool</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L383-L399' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.GlobalMeanPool' href='#Lux.GlobalMeanPool'>#</a>
+<strong><code>Lux.GlobalMeanPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">GlobalMeanPool</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+<p>Global Mean Pooling layer. Transforms (w,h,c,b)-shaped input into (1,1,c,b)-shaped output, by performing mean pooling on the complete (w,h)-shaped feature maps.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Data satisfying <code>ndims(x) &gt; 2</code>, i.e. <code>size(x) = (I_N, ..., I_1, C, N)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of the pooling <code>y</code> of size <code>(1, ..., 1, C, N)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a>, <a href="./#Lux.GlobalMaxPool"><code>GlobalMaxPool</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L406-L422' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.MaxPool' href='#Lux.MaxPool'>#</a>
+<strong><code>Lux.MaxPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">MaxPool</span><span class="p">(</span><span class="n">window</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">;</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Max pooling layer, which replaces all pixels in a block of size <code>window</code> with the maximum value.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>window</code>: Tuple of integers specifying the size of the window. Eg, for 2D pooling           <code>length(window) == 2</code></li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>stride</code>: Should each be either single integer, or a tuple with <code>N</code> integers</li>
+<li>
+<p><code>pad</code>: Specifies the number of elements added to the borders of the data array. It can        be</p>
+<ul>
+<li>a single integer for equal padding all around,</li>
+<li>a tuple of <code>N</code> integers, to apply the same padding at begin/end of each spatial dimension,</li>
+<li>a tuple of <code>2*N</code> integers, for asymmetric padding, or</li>
+<li>the singleton <code>SamePad()</code>, to calculate padding such that <code>size(output,d) == size(x,d) / stride</code> (possibly rounded) for each spatial dimension.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Data satisfying <code>ndims(x) == N + 2</code>, i.e. <code>size(x) = (I_N, ..., I_1, C, N)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of the pooling <code>y</code> of size <code>(O_N, ..., O_1, C, N)</code> where</li>
+</ul>
+<div class="arithmatex">\[
+  O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] \times (k[i] - 1)}{stride[i]} + 1\right)
+\]</div>
+<ul>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.Conv"><code>Conv</code></a>, <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.GlobalMaxPool"><code>GlobalMaxPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L154' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.MeanPool' href='#Lux.MeanPool'>#</a>
+<strong><code>Lux.MeanPool</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">MeanPool</span><span class="p">(</span><span class="n">window</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">;</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Mean pooling layer, which replaces all pixels in a block of size <code>window</code> with the mean value.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>window</code>: Tuple of integers specifying the size of the window. Eg, for 2D pooling           <code>length(window) == 2</code></li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>stride</code>: Should each be either single integer, or a tuple with <code>N</code> integers</li>
+<li>
+<p><code>pad</code>: Specifies the number of elements added to the borders of the data array. It can        be</p>
+<ul>
+<li>a single integer for equal padding all around,</li>
+<li>a tuple of <code>N</code> integers, to apply the same padding at begin/end of each spatial dimension,</li>
+<li>a tuple of <code>2*N</code> integers, for asymmetric padding, or</li>
+<li>the singleton <code>SamePad()</code>, to calculate padding such that <code>size(output,d) == size(x,d) / stride</code> (possibly rounded) for each spatial dimension.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Data satisfying <code>ndims(x) == N + 2</code>, i.e. <code>size(x) = (I_N, ..., I_1, C, N)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of the pooling <code>y</code> of size <code>(O_N, ..., O_1, C, N)</code> where</li>
+</ul>
+<div class="arithmatex">\[
+  O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] \times (k[i] - 1)}{stride[i]} + 1\right)
+\]</div>
+<ul>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p>See also <a href="./#Lux.Conv"><code>Conv</code></a>, <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.GlobalMeanPool"><code>GlobalMeanPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L221' class='documenter-source'>source</a><br></p>
+<p><a id='Recurrent-Layers'></a></p>
+<p><a id='Recurrent-Layers-1'></a></p>
+<h2 id="recurrent-layers">Recurrent Layers<a class="headerlink" href="#recurrent-layers" title="Permanent link">¤</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Recurrent Layers API should be considered Experimental at this point</p>
+</div>
+<p><a id='Lux.GRUCell' href='#Lux.GRUCell'>#</a>
+<strong><code>Lux.GRUCell</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">GRUCell</span><span class="p">((</span><span class="n">in_dims</span><span class="p">,</span><span class="w"> </span><span class="n">out_dims</span><span class="p">)</span><span class="o">::</span><span class="kt">Pair</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">Int</span><span class="p">,</span><span class="o">&lt;:</span><span class="kt">Int</span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="n">init_weight</span><span class="o">::</span><span class="kt">Tuple</span><span class="p">{</span><span class="kt">Function</span><span class="p">,</span><span class="kt">Function</span><span class="p">,</span><span class="kt">Function</span><span class="p">}</span><span class="o">=</span><span class="p">(</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                        </span><span class="n">glorot_uniform</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="n">init_bias</span><span class="o">::</span><span class="kt">Tuple</span><span class="p">{</span><span class="kt">Function</span><span class="p">,</span><span class="kt">Function</span><span class="p">,</span><span class="kt">Function</span><span class="p">}</span><span class="o">=</span><span class="p">(</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">zeros32</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="n">init_state</span><span class="o">::</span><span class="kt">Function</span><span class="o">=</span><span class="n">zeros32</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Gated Recurrent Unit (GRU) Cell</p>
+<div class="arithmatex">\[
+\begin{align}
+  r &amp;= \sigma(W_{ir} \times x + W_{hr} \times h_{prev} + b_{hr})\\
+  z &amp;= \sigma(W_{iz} \times x + W_{hz} \times h_{prev} + b_{hz})\\
+  n &amp;= \sigma(W_{in} \times x + b_{in} + r \cdot (W_{hn} \times h_{prev} + b_{hn}))\\
+  h_{new} &amp;= (1 - z) \cdot n + z \cdot h_{prev}
+\end{align}
+\]</div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>in_dims</code>: Input Dimension</li>
+<li><code>out_dims</code>: Output (Hidden State) Dimension</li>
+<li><code>init_bias</code>: Initializer for bias. Must be a tuple containing 3 functions</li>
+<li><code>init_weight</code>: Initializer for weight. Must be a tuple containing 3 functions</li>
+<li><code>init_state</code>: Initializer for hidden state</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>Case 1: Only a single input <code>x</code> of shape <code>(in_dims, batch_size)</code> - Creates a hidden         state using <code>init_state</code> and proceeds to Case 2.</li>
+<li>Case 2: Tuple (<code>x</code>, <code>h</code>) is provided, then the updated hidden state is returned.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>New hidden state <span class="arithmatex">\(h_{new}\)</span> of shape <code>(out_dims, batch_size)</code></li>
+<li>Updated model state</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight_i</code>: Concatenated Weights to map from input space             <span class="arithmatex">\(\\left\\{ W_{ir}, W_{iz}, W_{in} \\right\\}\)</span>.</li>
+<li><code>weight_h</code>: Concatenated Weights to map from hidden space             <span class="arithmatex">\(\\left\\{ W_{hr}, W_{hz}, W_{hn} \\right\\}\)</span></li>
+<li><code>bias_i</code>: Bias vector (<span class="arithmatex">\(b_{in}\)</span>)</li>
+<li><code>bias_h</code>: Concatenated Bias vector for the hidden space           <span class="arithmatex">\(\\left\\{ b_{hr}, b_{hz}, b_{hn} \\right\\}\)</span></li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/recurrent.jl#L233' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.LSTMCell' href='#Lux.LSTMCell'>#</a>
+<strong><code>Lux.LSTMCell</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">LSTMCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="p">(</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                           </span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">glorot_uniform</span><span class="p">),</span><span class="w"></span>
+<span class="w">         </span><span class="n">init_bias</span><span class="o">=</span><span class="p">(</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">ones32</span><span class="p">,</span><span class="w"> </span><span class="n">zeros32</span><span class="p">),</span><span class="w"> </span><span class="n">init_state</span><span class="o">=</span><span class="n">zeros32</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Long Short-Term (LSTM) Cell</p>
+<div class="arithmatex">\[
+\begin{align}
+  i &amp;= \sigma(W_{ii} \times x + W_{hi} \times h_{prev} + b_{i})\\
+  f &amp;= \sigma(W_{if} \times x + W_{hf} \times h_{prev} + b_{f})\\
+  g &amp;= tanh(W_{ig} \times x + W_{hg} \times h_{prev} + b_{g})\\
+  o &amp;= \sigma(W_{io} \times x + W_{ho} \times h_{prev} + b_{o})\\
+  c_{new} &amp;= f \cdot c_{prev} + i \cdot g\\
+  h_{new} &amp;= o \cdot tanh(c_{new})
+\end{align}
+\]</div>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>in_dims</code>: Input Dimension</li>
+<li><code>out_dims</code>: Output (Hidden State &amp; Memory) Dimension</li>
+<li><code>init_bias</code>: Initializer for bias. Must be a tuple containing 4 functions</li>
+<li><code>init_weight</code>: Initializer for weight. Must be a tuple containing 4 functions</li>
+<li><code>init_state</code>: Initializer for hidden state and memory</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>Case 1: Only a single input <code>x</code> of shape <code>(in_dims, batch_size)</code> - Creates a hidden</li>
+</ul>
+<p>state and memory using <code>init_state</code> and proceeds to Case 2.</p>
+<ul>
+<li>Case 2: Tuple (<code>x</code>, <code>h</code>, <code>c</code>) is provided, then the updated hidden state and memory is</li>
+</ul>
+<p>returned.</p>
+<p><strong>Returns</strong></p>
+<ul>
+<li>
+<p>Tuple Containing</p>
+<ul>
+<li>New hidden state <span class="arithmatex">\(h_{new}\)</span> of shape <code>(out_dims, batch_size)</code></li>
+<li>Updated Memory <span class="arithmatex">\(c_{new}\)</span> of shape <code>(out_dims, batch_size)</code></li>
+<li>Updated model state</li>
+</ul>
+</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight_i</code>: Concatenated Weights to map from input space             <span class="arithmatex">\(\left\{ W_{ii}, W_{if}, W_{ig}, W_{io} \right\}\)</span>.</li>
+<li><code>weight_h</code>: Concatenated Weights to map from hidden space             <span class="arithmatex">\(\left\{ W_{hi}, W_{hf}, W_{hg}, W_{ho} \right\}\)</span></li>
+<li><code>bias</code>: Bias vector</li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/recurrent.jl#L120' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.RNNCell' href='#Lux.RNNCell'>#</a>
+<strong><code>Lux.RNNCell</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">RNNCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">tanh</span><span class="p">;</span><span class="w"> </span><span class="n">bias</span><span class="o">::</span><span class="kt">Bool</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">init_weight</span><span class="o">=</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">init_state</span><span class="o">=</span><span class="n">ones32</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>An Elman RNNCell cell with <code>activation</code> (typically set to <code>tanh</code> or <code>relu</code>).</p>
+<p><span class="arithmatex">\(h_{new} = activation(weight_{ih} \times x + weight_{hh} \times h_{prev} + bias)\)</span></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>in_dims</code>: Input Dimension</li>
+<li><code>out_dims</code>: Output (Hidden State) Dimension</li>
+<li><code>activation</code>: Activation function</li>
+<li><code>bias</code>: Set to false to deactivate bias</li>
+<li><code>init_bias</code>: Initializer for bias</li>
+<li><code>init_weight</code>: Initializer for weight</li>
+<li><code>init_state</code>: Initializer for hidden state</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>Case 1: Only a single input <code>x</code> of shape <code>(in_dims, batch_size)</code> - Creates a hidden         state using <code>init_state</code> and proceeds to Case 2.</li>
+<li>Case 2: Tuple (<code>x</code>, <code>h</code>) is provided, then the updated hidden state is returned.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>New hidden state <span class="arithmatex">\(h_{new}\)</span> of shape <code>(out_dims, batch_size)</code></li>
+<li>Updated model state</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight_ih</code>: Maps the input to the hidden state.</li>
+<li><code>weight_hh</code>: Maps the hidden state to the hidden state.</li>
+<li><code>bias</code>: Bias vector (not present if <code>bias=false</code>)</li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/recurrent.jl#L1' class='documenter-source'>source</a><br></p>
+<p><a id='Linear-Layers'></a></p>
+<p><a id='Linear-Layers-1'></a></p>
+<h2 id="linear-layers">Linear Layers<a class="headerlink" href="#linear-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.Dense' href='#Lux.Dense'>#</a>
+<strong><code>Lux.Dense</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Dense</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="o">::</span><span class="kt">Bool</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Create a traditional fully connected layer, whose forward pass is given by: <code>y = activation.(weight * x .+ bias)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>in_dims</code>: number of input dimensions</li>
+<li><code>out_dims</code>: number of output dimensions</li>
+<li><code>activation</code>: activation function</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>init_weight</code>: initializer for the weight matrix (<code>weight = init_weight(rng, out_dims, in_dims)</code>)</li>
+<li><code>init_bias</code>: initializer for the bias vector (ignored if <code>bias=false</code>)</li>
+<li><code>bias</code>: whether to include a bias vector</li>
+</ul>
+<p><strong>Input</strong></p>
+<ul>
+<li><code>x</code> must be a Matrix of size <code>in_dims × B</code> or a Vector of length <code>in_dims</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Matrix of size <code>out_dims × B</code> or a Vector of length <code>out_dims</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight</code>: Weight Matrix of size <code>out_dims × in_dims</code></li>
+<li><code>bias</code>: Bias of size <code>out_dims × 1</code> (present if <code>bias=true</code>)</li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L555-L588' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.Scale' href='#Lux.Scale'>#</a>
+<strong><code>Lux.Scale</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Scale</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="n">ones32</span><span class="p">,</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="o">::</span><span class="kt">Bool</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Create a Sparsely Connected Layer with a very specific structure (only Diagonal Elements are non-zero). The forward pass is given by: <code>y = activation.(weight .* x .+ bias)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>dims</code>: size of the learnable scale and bias parameters.</li>
+<li><code>activation</code>: activation function</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>init_weight</code>: initializer for the weight matrix (<code>weight = init_weight(rng, out_dims, in_dims)</code>)</li>
+<li><code>init_bias</code>: initializer for the bias vector (ignored if <code>bias=false</code>)</li>
+<li><code>bias</code>: whether to include a bias vector</li>
+</ul>
+<p><strong>Input</strong></p>
+<ul>
+<li><code>x</code> must be an Array of size <code>(dims..., B)</code> or <code>(dims...[0], ..., dims[k])</code> for <code>k ≤ size(dims)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Array of size <code>(dims..., B)</code> or <code>(dims...[0], ..., dims[k])</code> for <code>k ≤ size(dims)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>weight</code>: Weight Array of size <code>(dims...)</code></li>
+<li><code>bias</code>: Bias of size <code>(dims...)</code></li>
+</ul>
+<div class="admonition compat">
+<p class="admonition-title">Lux 0.4.3</p>
+<p><code>Scale</code> with multiple dimensions requires at least Lux 0.4.3.</p>
+</div>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L688-L724' class='documenter-source'>source</a><br></p>
+<p><a id='Misc.-Helper-Layers'></a></p>
+<p><a id='Misc.-Helper-Layers-1'></a></p>
+<h2 id="misc-helper-layers">Misc. Helper Layers<a class="headerlink" href="#misc-helper-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.ActivationFunction' href='#Lux.ActivationFunction'>#</a>
+<strong><code>Lux.ActivationFunction</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ActivationFunction</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Broadcast <code>f</code> on the input but fallback to CUDNN for Backward Pass. Internally calls <a href="../utilities/#Lux.applyactivation"><code>Lux.applyactivation</code></a></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>f</code>: Activation function</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Any array type s.t. <code>f</code> can be broadcasted over it</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Broadcasted Activation <code>f.(x)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L125-L143' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.FlattenLayer' href='#Lux.FlattenLayer'>#</a>
+<strong><code>Lux.FlattenLayer</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">FlattenLayer</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+<p>Flattens the passed array into a matrix.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: AbstractArray</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>AbstractMatrix of size <code>(:, size(x, ndims(x)))</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L31-L44' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.NoOpLayer' href='#Lux.NoOpLayer'>#</a>
+<strong><code>Lux.NoOpLayer</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">NoOpLayer</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+<p>As the name suggests does nothing but allows pretty printing of layers. Whatever input is passed is returned.</p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L84-L89' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.ReshapeLayer' href='#Lux.ReshapeLayer'>#</a>
+<strong><code>Lux.ReshapeLayer</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ReshapeLayer</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Reshapes the passed array to have a size of <code>(dims..., :)</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>dims</code>: The new dimensions of the array (excluding the last dimension).</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: AbstractArray of any shape which can be reshaped in <code>(dims..., size(x, ndims(x)))</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>AbstractArray of size <code>(dims..., size(x, ndims(x)))</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L1-L18' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.SelectDim' href='#Lux.SelectDim'>#</a>
+<strong><code>Lux.SelectDim</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SelectDim</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Return a view of all the data of the input <code>x</code> where the index for dimension <code>dim</code> equals <code>i</code>. Equivalent to <code>view(x,:,:,...,i,:,:,...)</code> where <code>i</code> is in position <code>d</code>.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>dim</code>: Dimension for indexing</li>
+<li><code>i</code>: Index for dimension <code>dim</code></li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: AbstractArray that can be indexed with <code>view(x,:,:,...,i,:,:,...)</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>view(x,:,:,...,i,:,:,...)</code> where <code>i</code> is in position <code>d</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L51-L70' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.WrappedFunction' href='#Lux.WrappedFunction'>#</a>
+<strong><code>Lux.WrappedFunction</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">WrappedFunction</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Wraps a stateless and parameter less function. Might be used when a function is added to <code>Chain</code>. For example, <code>Chain(x -&gt; relu.(x))</code> would not work and the right thing to do would be <code>Chain((x, ps, st) -&gt; (relu.(x), st))</code>. An easier thing to do would be <code>Chain(WrappedFunction(Base.Fix1(broadcast, relu)))</code></p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>f::Function</code>: A stateless and parameterless function</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: s.t <code>hasmethod(f, (typeof(x),))</code> is <code>true</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output of <code>f(x)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/basic.jl#L94-L114' class='documenter-source'>source</a><br></p>
+<p><a id='Normalization-Layers'></a></p>
+<p><a id='Normalization-Layers-1'></a></p>
+<h2 id="normalization-layers">Normalization Layers<a class="headerlink" href="#normalization-layers" title="Permanent link">¤</a></h2>
+<p><a id='Lux.BatchNorm' href='#Lux.BatchNorm'>#</a>
+<strong><code>Lux.BatchNorm</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">BatchNorm</span><span class="p">(</span><span class="n">chs</span><span class="o">::</span><span class="kt">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">init_scale</span><span class="o">=</span><span class="n">ones32</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="n">affine</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">track_stats</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1f-5</span><span class="p">,</span><span class="w"> </span><span class="n">momentum</span><span class="o">=</span><span class="mf">0.1f0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p><a href="https://arxiv.org/abs/1502.03167">Batch Normalization</a> layer.</p>
+<p><code>BatchNorm</code> computes the mean and variance for each <code>D_1 × ... × D_{N-2} × 1 × D_N</code> input slice and normalises the input accordingly.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>chs</code>: Size of the channel dimension in your data. Given an array with <code>N</code> dimensions, call the <code>N-1</code>th the channel dimension. For a batch of feature vectors this is just the data dimension, for <code>WHCN</code> images it's the usual channel dimension.</li>
+<li><code>activation</code>: After normalisation, elementwise activation <code>activation</code> is applied.</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li>
+<p>If <code>affine=true</code>, it also applies  a shift and a rescale to the input through to learnable per-channel bias and scale parameters.</p>
+<ul>
+<li><code>init_bias</code>: Controls how the <code>bias</code> is initiliazed</li>
+<li><code>init_scale</code>: Controls how the <code>scale</code> is initiliazed</li>
+<li>If <code>track_stats=true</code>, accumulates mean and variance statistics in training phase that will be used to renormalize the input in test phase.</li>
+<li><code>epsilon</code>: a value added to the denominator for numerical stability</li>
+<li><code>momentum</code>:  the value used for the <code>running_mean</code> and <code>running_var</code> computation</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Array where <code>size(x, N - 1) = chs</code> and <code>ndims(x) &gt; 2</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>y</code>: Normalized Array</li>
+<li>Update model state</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>
+<p><code>affine=true</code></p>
+<ul>
+<li><code>bias</code>: Bias of shape <code>(chs,)</code></li>
+<li><code>scale</code>: Scale of shape <code>(chs,)</code></li>
+<li><code>affine=false</code> - Empty <code>NamedTuple()</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>
+<p>Statistics if <code>track_stats=true</code></p>
+<ul>
+<li><code>running_mean</code>: Running mean of shape <code>(chs,)</code></li>
+<li><code>running_var</code>: Running variance of shape <code>(chs,)</code></li>
+<li>
+<p>Statistics if <code>track_stats=false</code></p>
+</li>
+<li>
+<p><code>running_mean</code>: nothing</p>
+</li>
+<li><code>running_var</code>: nothing</li>
+<li><code>training</code>: Used to check if training/inference mode</li>
+</ul>
+</li>
+</ul>
+<p>Use <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> during inference.</p>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Chain</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">784</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">64</span><span class="p">),</span><span class="w"> </span><span class="n">BatchNorm</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">relu</span><span class="p">),</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"></span>
+<span class="w">          </span><span class="n">BatchNorm</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
+</code></pre></div>
+<p>See also <a href="./#Lux.GroupNorm"><code>GroupNorm</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/normalize.jl#L3-L73' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.GroupNorm' href='#Lux.GroupNorm'>#</a>
+<strong><code>Lux.GroupNorm</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">GroupNorm</span><span class="p">(</span><span class="n">chs</span><span class="o">::</span><span class="kt">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">groups</span><span class="o">::</span><span class="kt">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="n">init_scale</span><span class="o">=</span><span class="n">ones32</span><span class="p">,</span><span class="w"> </span><span class="n">affine</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">track_stats</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1f-5</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="n">momentum</span><span class="o">=</span><span class="mf">0.1f0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p><a href="https://arxiv.org/abs/1803.08494">Group Normalization</a> layer.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>chs</code>: Size of the channel dimension in your data. Given an array with <code>N</code> dimensions, call the <code>N-1</code>th the channel dimension. For a batch of feature vectors this is just the data dimension, for <code>WHCN</code> images it's the usual channel dimension.</li>
+<li><code>groups</code> is the number of groups along which the statistics are computed. The number of channels must be an integer multiple of the number of groups.</li>
+<li><code>activation</code>: After normalisation, elementwise activation <code>activation</code> is applied.</li>
+</ul>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li>
+<p>If <code>affine=true</code>, it also applies  a shift and a rescale to the input through to learnable per-channel bias and scale parameters.</p>
+<ul>
+<li><code>init_bias</code>: Controls how the <code>bias</code> is initiliazed</li>
+<li><code>init_scale</code>: Controls how the <code>scale</code> is initiliazed</li>
+<li>If <code>track_stats=true</code>, accumulates mean and variance statistics in training phase that will be used to renormalize the input in test phase.</li>
+<li><code>epsilon</code>: a value added to the denominator for numerical stability</li>
+<li><code>momentum</code>:  the value used for the <code>running_mean</code> and <code>running_var</code> computation</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Array where <code>size(x, N - 1) = chs</code> and <code>ndims(x) &gt; 2</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>y</code>: Normalized Array</li>
+<li>Update model state</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>
+<p><code>affine=true</code></p>
+<ul>
+<li><code>bias</code>: Bias of shape <code>(chs,)</code></li>
+<li><code>scale</code>: Scale of shape <code>(chs,)</code></li>
+<li><code>affine=false</code> - Empty <code>NamedTuple()</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>
+<p>Statistics if <code>track_stats=true</code></p>
+<ul>
+<li><code>running_mean</code>: Running mean of shape <code>(groups,)</code></li>
+<li><code>running_var</code>: Running variance of shape <code>(groups,)</code></li>
+<li>
+<p>Statistics if <code>track_stats=false</code></p>
+</li>
+<li>
+<p><code>running_mean</code>: nothing</p>
+</li>
+<li><code>running_var</code>: nothing</li>
+<li><code>training</code>: Used to check if training/inference mode</li>
+</ul>
+</li>
+</ul>
+<p>Use <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> during inference.</p>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Chain</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">784</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">64</span><span class="p">),</span><span class="w"> </span><span class="n">GroupNorm</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">relu</span><span class="p">),</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="n">GroupNorm</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>GroupNorm doesn't have CUDNN support. The GPU fallback is not very efficient.</p>
+</div>
+<p>See also <a href="./#Lux.BatchNorm"><code>BatchNorm</code></a></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/normalize.jl#L183-L256' class='documenter-source'>source</a><br></p>
+<p><a id='Lux.WeightNorm' href='#Lux.WeightNorm'>#</a>
+<strong><code>Lux.WeightNorm</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">WeightNorm</span><span class="p">(</span><span class="n">layer</span><span class="o">::</span><span class="kt">AbstractExplicitLayer</span><span class="p">,</span><span class="w"> </span><span class="n">which_params</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">{</span><span class="kt">N</span><span class="p">,</span><span class="kt">Symbol</span><span class="p">},</span><span class="w"></span>
+<span class="w">           </span><span class="n">dims</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">Tuple</span><span class="p">,</span><span class="kt">Nothing</span><span class="p">}</span><span class="o">=</span><span class="nb">nothing</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Applies <a href="https://arxiv.org/abs/1602.07868">weight normalization</a> to a parameter in the given layer.</p>
+<p><span class="arithmatex">\(w = g\frac{v}{\|v\|}\)</span></p>
+<p>Weight normalization is a reparameterization that decouples the magnitude of a weight tensor from its direction. This updates the parameters in <code>which_params</code> (e.g. <code>weight</code>) using two parameters: one specifying the magnitude (e.g. <code>weight_g</code>) and one specifying the direction (e.g. <code>weight_v</code>).</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><code>layer</code> whose parameters are being reparameterized</li>
+<li><code>which_params</code>: parameter names for the parameters being reparameterized</li>
+<li>By default, a norm over the entire array is computed. Pass <code>dims</code> to modify the dimension.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><code>x</code>: Should be of valid type for input to <code>layer</code></li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Output from <code>layer</code></li>
+<li>Updated model state of <code>layer</code></li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>normalized</code>: Parameters of <code>layer</code> that are being normalized</li>
+<li><code>unnormalized</code>: Parameters of <code>layer</code> that are not being normalized</li>
+</ul>
+<p><strong>States</strong></p>
+<ul>
+<li>Same as that of <code>layer</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/normalize.jl#L335' class='documenter-source'>source</a><br></p>
+<p><a id='Upsampling'></a></p>
+<p><a id='Upsampling-1'></a></p>
+<h2 id="upsampling">Upsampling<a class="headerlink" href="#upsampling" title="Permanent link">¤</a></h2>
+<p><a id='Lux.Upsample' href='#Lux.Upsample'>#</a>
+<strong><code>Lux.Upsample</code></strong> &mdash; <em>Type</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Upsample</span><span class="p">(</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">:nearest</span><span class="p">;</span><span class="w"> </span><span class="p">[</span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">])</span><span class="w"> </span>
+<span class="n">Upsample</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">:nearest</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Upsampling Layer.</p>
+<p><strong>Layer Construction</strong></p>
+<p><strong>Option 1</strong></p>
+<ul>
+<li><code>mode</code>: Set to <code>:nearest</code>, <code>:linear</code>, <code>:bilinear</code> or <code>:trilinear</code></li>
+</ul>
+<p>One of two keywords must be given:</p>
+<ul>
+<li>If <code>scale</code> is a number, this applies to all but the last two dimensions (channel and batch) of the input.  It may also be a tuple, to control dimensions individually.</li>
+<li>Alternatively, keyword <code>size</code> accepts a tuple, to directly specify the leading dimensions of the output.</li>
+</ul>
+<p><strong>Option 2</strong></p>
+<ul>
+<li>If <code>scale</code> is a number, this applies to all but the last two dimensions (channel and batch) of the input.  It may also be a tuple, to control dimensions individually.</li>
+<li><code>mode</code>: Set to <code>:nearest</code>, <code>:linear</code>, <code>:bilinear</code> or <code>:trilinear</code></li>
+</ul>
+<p>Currently supported upsampling <code>mode</code>s and corresponding NNlib's methods are:</p>
+<ul>
+<li><code>:nearest</code> -&gt; <code>NNlib.upsample_nearest</code></li>
+<li><code>:linear</code> -&gt; <code>NNlib.upsample_linear</code></li>
+<li><code>:bilinear</code> -&gt; <code>NNlib.upsample_bilinear</code></li>
+<li><code>:trilinear</code> -&gt; <code>NNlib.upsample_trilinear</code></li>
+</ul>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>
+<p><code>x</code>: For the input dimensions look into the documentation for the corresponding <code>NNlib</code> function</p>
+<ul>
+<li>As a rule of thumb, <code>:nearest</code> should work with arrays of arbitrary dimensions</li>
+<li><code>:linear</code> works with 3D Arrays, <code>:bilinear</code> works with 4D Arrays, and <code>:trilinear</code> works with 5D Arrays</li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Upsampled Input of size <code>size</code> or of size <code>(I_1 × scale[1], ..., I_N × scale[N], C, N)</code></li>
+<li>Empty <code>NamedTuple()</code></li>
+</ul>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/963b5e537cabdc757923200629cc4539f97efe17/src/layers/conv.jl#L288-L333' class='documenter-source'>source</a><br></p>
+<p><a id='Index'></a></p>
+<p><a id='Index-1'></a></p>
+<h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">¤</a></h2>
+<ul>
+<li><a href="./#Lux.ActivationFunction"><code>Lux.ActivationFunction</code></a></li>
+<li><a href="./#Lux.AdaptiveMaxPool"><code>Lux.AdaptiveMaxPool</code></a></li>
+<li><a href="./#Lux.AdaptiveMeanPool"><code>Lux.AdaptiveMeanPool</code></a></li>
+<li><a href="./#Lux.BatchNorm"><code>Lux.BatchNorm</code></a></li>
+<li><a href="./#Lux.BranchLayer"><code>Lux.BranchLayer</code></a></li>
+<li><a href="./#Lux.Chain"><code>Lux.Chain</code></a></li>
+<li><a href="./#Lux.Conv"><code>Lux.Conv</code></a></li>
+<li><a href="./#Lux.Dense"><code>Lux.Dense</code></a></li>
+<li><a href="./#Lux.Dropout"><code>Lux.Dropout</code></a></li>
+<li><a href="./#Lux.FlattenLayer"><code>Lux.FlattenLayer</code></a></li>
+<li><a href="./#Lux.GRUCell"><code>Lux.GRUCell</code></a></li>
+<li><a href="./#Lux.GlobalMaxPool"><code>Lux.GlobalMaxPool</code></a></li>
+<li><a href="./#Lux.GlobalMeanPool"><code>Lux.GlobalMeanPool</code></a></li>
+<li><a href="./#Lux.GroupNorm"><code>Lux.GroupNorm</code></a></li>
+<li><a href="./#Lux.LSTMCell"><code>Lux.LSTMCell</code></a></li>
+<li><a href="./#Lux.MaxPool"><code>Lux.MaxPool</code></a></li>
+<li><a href="./#Lux.MeanPool"><code>Lux.MeanPool</code></a></li>
+<li><a href="./#Lux.NoOpLayer"><code>Lux.NoOpLayer</code></a></li>
+<li><a href="./#Lux.PairwiseFusion"><code>Lux.PairwiseFusion</code></a></li>
+<li><a href="./#Lux.Parallel"><code>Lux.Parallel</code></a></li>
+<li><a href="./#Lux.RNNCell"><code>Lux.RNNCell</code></a></li>
+<li><a href="./#Lux.ReshapeLayer"><code>Lux.ReshapeLayer</code></a></li>
+<li><a href="./#Lux.Scale"><code>Lux.Scale</code></a></li>
+<li><a href="./#Lux.SelectDim"><code>Lux.SelectDim</code></a></li>
+<li><a href="./#Lux.SkipConnection"><code>Lux.SkipConnection</code></a></li>
+<li><a href="./#Lux.Upsample"><code>Lux.Upsample</code></a></li>
+<li><a href="./#Lux.VariationalHiddenDropout"><code>Lux.VariationalHiddenDropout</code></a></li>
+<li><a href="./#Lux.WeightNorm"><code>Lux.WeightNorm</code></a></li>
+<li><a href="./#Lux.WrappedFunction"><code>Lux.WrappedFunction</code></a></li>
+</ul>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../manual/migrate_from_flux/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Migrating from Flux to Lux" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Migrating from Flux to Lux
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../functional/" class="md-footer__link md-footer__link--next" aria-label="Next: Functional" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Functional
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
+      
+        <script src="../../_static/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

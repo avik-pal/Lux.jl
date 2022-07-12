@@ -1,0 +1,1332 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Lux.jl">
+      
+      
+        <meta name="author" content="Avik Pal">
+      
+      
+        <link rel="canonical" href="http://lux.csail.mit.edu/examples/generated/beginner/SimpleRNN/main/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+    
+    
+      
+        <title>Training a Simple LSTM - Lux.jl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Lato";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/custom.css">
+    
+      <link rel="stylesheet" href="../../../../../assets/Documenter.css">
+    
+      <link rel="stylesheet" href="../../../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#training-a-simple-lstm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Lux.jl" class="md-header__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lux.jl
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Training a Simple LSTM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Lux.jl" class="md-nav__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Lux.jl
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Lux.jl: Explicitly Parameterized Neural Networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../introduction/overview/" class="md-nav__link">
+        All about Lux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../introduction/ecosystem/" class="md-nav__link">
+        Ecosystem
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Beginner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beginner" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Beginner
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Basics/main/" class="md-nav__link">
+        Julia & Lux for the Uninitiated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Training a Simple LSTM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Training a Simple LSTM
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#package-imports" class="md-nav__link">
+    Package Imports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-classifier" class="md-nav__link">
+    Creating a Classifier
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-accuracy-loss-and-optimiser" class="md-nav__link">
+    Defining Accuracy, Loss and Optimiser
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-the-model" class="md-nav__link">
+    Training the Model
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Intermediate
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Intermediate" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Intermediate
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intermediate/NeuralODE/main/" class="md-nav__link">
+        MNIST Classification using NeuralODE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intermediate/BayesianNN/main/" class="md-nav__link">
+        Bayesian Neural Network
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../manual/interface/" class="md-nav__link">
+        Lux Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../manual/migrate_from_flux/" class="md-nav__link">
+        Migrating from Flux to Lux
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/layers/" class="md-nav__link">
+        Layers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/functional/" class="md-nav__link">
+        Functional
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/core/" class="md-nav__link">
+        Core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/utilities/" class="md-nav__link">
+        Utilities
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Frameworks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Frameworks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Frameworks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../lib/Boltz/" class="md-nav__link">
+        Boltz.jl
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Development Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Development Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../devdocs/style_guide/" class="md-nav__link">
+        Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../devdocs/layer_implementation/" class="md-nav__link">
+        Layer Implementation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<p><a id='Training-a-Simple-LSTM'></a></p>
+<p><a id='Training-a-Simple-LSTM-1'></a></p>
+<h1 id="training-a-simple-lstm">Training a Simple LSTM<a class="headerlink" href="#training-a-simple-lstm" title="Permanent link">¤</a></h1>
+<p>In this tutorial we will go over using a recurrent neural network to classify clockwise and anticlockwise spirals. By the end of this tutorial you will be able to:</p>
+<ol>
+<li>Create custom Lux models</li>
+<li>Become familiar with the Lux recurrent neural network API</li>
+<li>Training using Optimisers.jl and Zygote.jl</li>
+</ol>
+<p><a id='Package-Imports'></a></p>
+<p><a id='Package-Imports-1'></a></p>
+<h2 id="package-imports">Package Imports<a class="headerlink" href="#package-imports" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Lux</span><span class="w"></span>
+<span class="k">using</span><span class="w"> </span><span class="n">MLUtils</span><span class="p">,</span><span class="w"> </span><span class="n">Optimisers</span><span class="p">,</span><span class="w"> </span><span class="n">Zygote</span><span class="p">,</span><span class="w"> </span><span class="n">NNlib</span><span class="p">,</span><span class="w"> </span><span class="n">Random</span><span class="p">,</span><span class="w"> </span><span class="n">Statistics</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  Activating project at `~/work/Lux.jl/Lux.jl/examples`
+</code></pre></div>
+<p><a id='Dataset'></a></p>
+<p><a id='Dataset-1'></a></p>
+<h2 id="dataset">Dataset<a class="headerlink" href="#dataset" title="Permanent link">¤</a></h2>
+<p>We will use MLUtils to generate 500 (noisy) clockwise and 500 (noisy) anticlockwise spirals. Using this data we will create a <code>MLUtils.DataLoader</code>. Our dataloader will give us sequences of size 2 × seq<em>len × batch</em>size and we need to predict a binary value whether the sequence is clockwise or anticlockwise</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">get_dataloaders</span><span class="p">(;</span><span class="w"> </span><span class="n">dataset_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Create the spirals</span><span class="w"></span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">MLUtils</span><span class="o">.</span><span class="n">Datasets</span><span class="o">.</span><span class="n">make_spiral</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">dataset_size</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Get the labels</span><span class="w"></span>
+<span class="w">    </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vcat</span><span class="p">(</span><span class="n">repeat</span><span class="p">([</span><span class="mf">0.0f0</span><span class="p">],</span><span class="w"> </span><span class="n">dataset_size</span><span class="w"> </span><span class="o">÷</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">repeat</span><span class="p">([</span><span class="mf">1.0f0</span><span class="p">],</span><span class="w"> </span><span class="n">dataset_size</span><span class="w"> </span><span class="o">÷</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">clockwise_spirals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">reshape</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">sequence_length</span><span class="p">],</span><span class="w"> </span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">                         </span><span class="k">for</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="p">(</span><span class="n">dataset_size</span><span class="w"> </span><span class="o">÷</span><span class="w"> </span><span class="mi">2</span><span class="p">)]]</span><span class="w"></span>
+<span class="w">    </span><span class="n">anticlockwise_spirals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">reshape</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">sequence_length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">:</span><span class="k">end</span><span class="p">],</span><span class="w"> </span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">data</span><span class="p">[((</span><span class="n">dataset_size</span><span class="w"> </span><span class="o">÷</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">:</span><span class="k">end</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="n">x_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Float32</span><span class="o">.</span><span class="p">(</span><span class="n">cat</span><span class="p">(</span><span class="n">clockwise_spirals</span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="n">anticlockwise_spirals</span><span class="o">...</span><span class="p">;</span><span class="w"> </span><span class="n">dims</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Split the dataset</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span><span class="w"> </span><span class="n">y_val</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">splitobs</span><span class="p">((</span><span class="n">x_data</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="p">);</span><span class="w"> </span><span class="n">at</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                  </span><span class="n">shuffle</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Create DataLoaders</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="c"># Use DataLoader to automatically minibatch and shuffle the data</span><span class="w"></span>
+<span class="w">            </span><span class="n">DataLoader</span><span class="p">(</span><span class="n">collect</span><span class="o">.</span><span class="p">((</span><span class="n">x_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">));</span><span class="w"> </span><span class="n">batchsize</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="n">shuffle</span><span class="o">=</span><span class="nb">true</span><span class="p">),</span><span class="w"></span>
+<span class="w">            </span><span class="c"># Don&#39;t shuffle the validation data</span><span class="w"></span>
+<span class="w">            </span><span class="n">DataLoader</span><span class="p">(</span><span class="n">collect</span><span class="o">.</span><span class="p">((</span><span class="n">x_val</span><span class="p">,</span><span class="w"> </span><span class="n">y_val</span><span class="p">));</span><span class="w"> </span><span class="n">batchsize</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="n">shuffle</span><span class="o">=</span><span class="nb">false</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>get_dataloaders (generic function with 1 method)
+</code></pre></div>
+<p><a id='Creating-a-Classifier'></a></p>
+<p><a id='Creating-a-Classifier-1'></a></p>
+<h2 id="creating-a-classifier">Creating a Classifier<a class="headerlink" href="#creating-a-classifier" title="Permanent link">¤</a></h2>
+<p>We will be extending the <code>Lux.AbstractExplicitContainerLayer</code> type for our custom model since it will contain a lstm block and a classifier head.</p>
+<p>We pass the fieldnames <code>lstm_cell</code> and <code>classifier</code> to the type to ensure that the parameters and states are automatically populated and we don't have to define <a href="../../../../../api/core/#Lux.initialparameters"><code>Lux.initialparameters</code></a> and <a href="../../../../../api/core/#Lux.initialstates"><code>Lux.initialstates</code></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="kt">SpiralClassifier</span><span class="p">{</span><span class="kt">L</span><span class="p">,</span><span class="w"> </span><span class="kt">C</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"></span>
+<span class="w">       </span><span class="kt">Lux</span><span class="o">.</span><span class="kt">AbstractExplicitContainerLayer</span><span class="p">{(</span><span class="ss">:lstm_cell</span><span class="p">,</span><span class="w"> </span><span class="ss">:classifier</span><span class="p">)}</span><span class="w"></span>
+<span class="w">    </span><span class="n">lstm_cell</span><span class="o">::</span><span class="kt">L</span><span class="w"></span>
+<span class="w">    </span><span class="n">classifier</span><span class="o">::</span><span class="kt">C</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<p>We won't define the model from scratch but rather use the <a href="../../../../../api/layers/#Lux.LSTMCell"><code>Lux.LSTMCell</code></a> and <a href="../../../../../api/layers/#Lux.Dense"><code>Lux.Dense</code></a></p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">SpiralClassifier</span><span class="p">(</span><span class="n">in_dims</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_dims</span><span class="p">,</span><span class="w"> </span><span class="n">out_dims</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SpiralClassifier</span><span class="p">(</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">hidden_dims</span><span class="p">),</span><span class="w"></span>
+<span class="w">                            </span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">,</span><span class="w"> </span><span class="n">sigmoid</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Main.SpiralClassifier
+</code></pre></div>
+<p>Now we need to define the behavior of the Classifier when it is invoked</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">SpiralClassifier</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="kt">AbstractArray</span><span class="p">{</span><span class="kt">T</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span><span class="w"> </span><span class="n">ps</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="p">{</span><span class="kt">T</span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c"># First we will have to run the sequence through the LSTM Cell</span><span class="w"></span>
+<span class="w">    </span><span class="c"># The first call to LSTM Cell will create the initial hidden state</span><span class="w"></span>
+<span class="w">    </span><span class="c"># See that the parameters and states are automatically populated into a field called `lstm_cell`</span><span class="w"></span>
+<span class="w">    </span><span class="c"># We use `view(x, :, 1, :)` to get the first element in the sequence without copying it</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="n">st_lstm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">lstm_cell</span><span class="p">(</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="p">),</span><span class="w"> </span><span class="n">ps</span><span class="o">.</span><span class="n">lstm_cell</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="o">.</span><span class="n">lstm_cell</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Now that we have the hidden state we will pass the input and hidden state jointly</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="n">st_lstm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">lstm_cell</span><span class="p">((</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="p">),</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="n">ps</span><span class="o">.</span><span class="n">lstm_cell</span><span class="p">,</span><span class="w"> </span><span class="n">st_lstm</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="w">    </span><span class="c"># After running through the sequence we will pass the output through the classifier</span><span class="w"></span>
+<span class="w">    </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">st_classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="o">.</span><span class="n">classifier</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="o">.</span><span class="n">classifier</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Finally remember to create the updated state</span><span class="w"></span>
+<span class="w">    </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">classifier</span><span class="o">=</span><span class="n">st_classifier</span><span class="p">,</span><span class="w"> </span><span class="n">lstm_cell</span><span class="o">=</span><span class="n">st_lstm</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">vec</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">st</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<p><a id='Defining-Accuracy,-Loss-and-Optimiser'></a></p>
+<p><a id='Defining-Accuracy,-Loss-and-Optimiser-1'></a></p>
+<h2 id="defining-accuracy-loss-and-optimiser">Defining Accuracy, Loss and Optimiser<a class="headerlink" href="#defining-accuracy-loss-and-optimiser" title="Permanent link">¤</a></h2>
+<p>Now let's define the binarycrossentropy loss. Typically it is recommended to use <code>logitbinarycrossentropy</code> since it is more numerically stable, but for the sake of simplicity we will use <code>binarycrossentropy</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">xlogy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">iszero</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">result</span><span class="p">),</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">binarycrossentropy</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y_true</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">y_pred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y_pred</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="n">eps</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="nd">@.</span><span class="w"> </span><span class="o">-</span><span class="n">xlogy</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">xlogy</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y_true</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y_pred</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">compute_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">binarycrossentropy</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+
+<span class="n">matches</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y_true</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">((</span><span class="n">y_pred</span><span class="w"> </span><span class="o">.&gt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">.==</span><span class="w"> </span><span class="n">y_true</span><span class="p">)</span><span class="w"></span>
+<span class="n">accuracy</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y_true</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matches</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y_true</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>accuracy (generic function with 1 method)
+</code></pre></div>
+<p>Finally lets create an optimiser given the model parameters</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">create_optimiser</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">ADAM</span><span class="p">(</span><span class="mf">0.01f0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>create_optimiser (generic function with 1 method)
+</code></pre></div>
+<p><a id='Training-the-Model'></a></p>
+<p><a id='Training-the-Model-1'></a></p>
+<h2 id="training-the-model">Training the Model<a class="headerlink" href="#training-the-model" title="Permanent link">¤</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Get the dataloaders</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span><span class="w"> </span><span class="n">val_loader</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_dataloaders</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="c"># Create the model</span><span class="w"></span>
+<span class="w">    </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpiralClassifier</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">Random</span><span class="o">.</span><span class="n">seed!</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c"># Create the optimiser</span><span class="w"></span>
+<span class="w">    </span><span class="n">opt_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_optimiser</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">epoch</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">25</span><span class="w"></span>
+<span class="w">        </span><span class="c"># Train the model</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">train_loader</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">),</span><span class="w"> </span><span class="n">back</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pullback</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">compute_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">),</span><span class="w"> </span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">gs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">back</span><span class="p">((</span><span class="n">one</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span><span class="w"> </span><span class="nb">nothing</span><span class="p">,</span><span class="w"> </span><span class="nb">nothing</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+<span class="w">            </span><span class="n">opt_state</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opt_state</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">gs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Epoch [</span><span class="si">$epoch</span><span class="s">]: Loss </span><span class="si">$loss</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"></span>
+
+<span class="w">        </span><span class="c"># Validate the model</span><span class="w"></span>
+<span class="w">        </span><span class="n">st_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">testmode</span><span class="p">(</span><span class="n">st</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">val_loader</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">st_</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st_</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accuracy</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Validation: Loss </span><span class="si">$loss</span><span class="s"> Accuracy </span><span class="si">$acc</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+
+<span class="n">main</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Epoch [1]: Loss 0.56149215
+Epoch [1]: Loss 0.5049323
+Epoch [1]: Loss 0.47334144
+Epoch [1]: Loss 0.44829383
+Epoch [1]: Loss 0.4333028
+Epoch [1]: Loss 0.40884122
+Epoch [1]: Loss 0.3914853
+Validation: Loss 0.3664357 Accuracy 1.0
+Validation: Loss 0.37418374 Accuracy 1.0
+Epoch [2]: Loss 0.35810766
+Epoch [2]: Loss 0.3540123
+Epoch [2]: Loss 0.34280917
+Epoch [2]: Loss 0.3193204
+Epoch [2]: Loss 0.2997916
+Epoch [2]: Loss 0.2854032
+Epoch [2]: Loss 0.27200708
+Validation: Loss 0.25686264 Accuracy 1.0
+Validation: Loss 0.2616324 Accuracy 1.0
+Epoch [3]: Loss 0.2594938
+Epoch [3]: Loss 0.24392252
+Epoch [3]: Loss 0.23166674
+Epoch [3]: Loss 0.22472432
+Epoch [3]: Loss 0.20731021
+Epoch [3]: Loss 0.19880316
+Epoch [3]: Loss 0.19710149
+Validation: Loss 0.17969233 Accuracy 1.0
+Validation: Loss 0.18212944 Accuracy 1.0
+Epoch [4]: Loss 0.1808561
+Epoch [4]: Loss 0.17043293
+Epoch [4]: Loss 0.16408412
+Epoch [4]: Loss 0.15665922
+Epoch [4]: Loss 0.14891377
+Epoch [4]: Loss 0.14152783
+Epoch [4]: Loss 0.13711959
+Validation: Loss 0.12865405 Accuracy 1.0
+Validation: Loss 0.13010186 Accuracy 1.0
+Epoch [5]: Loss 0.12951379
+Epoch [5]: Loss 0.12434523
+Epoch [5]: Loss 0.11591288
+Epoch [5]: Loss 0.11358931
+Epoch [5]: Loss 0.10719822
+Epoch [5]: Loss 0.103429
+Epoch [5]: Loss 0.09996706
+Validation: Loss 0.093723565 Accuracy 1.0
+Validation: Loss 0.095075384 Accuracy 1.0
+Epoch [6]: Loss 0.09453925
+Epoch [6]: Loss 0.09076261
+Epoch [6]: Loss 0.08522208
+Epoch [6]: Loss 0.08355892
+Epoch [6]: Loss 0.078727014
+Epoch [6]: Loss 0.07606816
+Epoch [6]: Loss 0.071434505
+Validation: Loss 0.06911984 Accuracy 1.0
+Validation: Loss 0.07055578 Accuracy 1.0
+Epoch [7]: Loss 0.07066438
+Epoch [7]: Loss 0.06535721
+Epoch [7]: Loss 0.06560714
+Epoch [7]: Loss 0.06071301
+Epoch [7]: Loss 0.058773015
+Epoch [7]: Loss 0.055840574
+Epoch [7]: Loss 0.054903664
+Validation: Loss 0.051482458 Accuracy 1.0
+Validation: Loss 0.052948043 Accuracy 1.0
+Epoch [8]: Loss 0.052273236
+Epoch [8]: Loss 0.049392566
+Epoch [8]: Loss 0.047106385
+Epoch [8]: Loss 0.046812233
+Epoch [8]: Loss 0.044289313
+Epoch [8]: Loss 0.04203675
+Epoch [8]: Loss 0.042080086
+Validation: Loss 0.038663387 Accuracy 1.0
+Validation: Loss 0.040051356 Accuracy 1.0
+Epoch [9]: Loss 0.039317697
+Epoch [9]: Loss 0.03801973
+Epoch [9]: Loss 0.03598688
+Epoch [9]: Loss 0.034298975
+Epoch [9]: Loss 0.03251428
+Epoch [9]: Loss 0.032689683
+Epoch [9]: Loss 0.03248937
+Validation: Loss 0.029465739 Accuracy 1.0
+Validation: Loss 0.03072252 Accuracy 1.0
+Epoch [10]: Loss 0.030847818
+Epoch [10]: Loss 0.028199041
+Epoch [10]: Loss 0.027810704
+Epoch [10]: Loss 0.027358856
+Epoch [10]: Loss 0.026614795
+Epoch [10]: Loss 0.023540253
+Epoch [10]: Loss 0.023531178
+Validation: Loss 0.023101196 Accuracy 1.0
+Validation: Loss 0.024206154 Accuracy 1.0
+Epoch [11]: Loss 0.025255986
+Epoch [11]: Loss 0.021562638
+Epoch [11]: Loss 0.020619327
+Epoch [11]: Loss 0.021506943
+Epoch [11]: Loss 0.020865368
+Epoch [11]: Loss 0.020460116
+Epoch [11]: Loss 0.02015039
+Validation: Loss 0.01876291 Accuracy 1.0
+Validation: Loss 0.019735087 Accuracy 1.0
+Epoch [12]: Loss 0.019467238
+Epoch [12]: Loss 0.018296983
+Epoch [12]: Loss 0.01754333
+Epoch [12]: Loss 0.01739321
+Epoch [12]: Loss 0.017918343
+Epoch [12]: Loss 0.016282286
+Epoch [12]: Loss 0.01778693
+Validation: Loss 0.015760785 Accuracy 1.0
+Validation: Loss 0.016596802 Accuracy 1.0
+Epoch [13]: Loss 0.016018657
+Epoch [13]: Loss 0.015988272
+Epoch [13]: Loss 0.016073944
+Epoch [13]: Loss 0.014674231
+Epoch [13]: Loss 0.013723777
+Epoch [13]: Loss 0.015024224
+Epoch [13]: Loss 0.012125994
+Validation: Loss 0.013574324 Accuracy 1.0
+Validation: Loss 0.014318138 Accuracy 1.0
+Epoch [14]: Loss 0.013762575
+Epoch [14]: Loss 0.013576586
+Epoch [14]: Loss 0.013685016
+Epoch [14]: Loss 0.0135873705
+Epoch [14]: Loss 0.011999479
+Epoch [14]: Loss 0.0124146165
+Epoch [14]: Loss 0.012820657
+Validation: Loss 0.011961469 Accuracy 1.0
+Validation: Loss 0.012629893 Accuracy 1.0
+Epoch [15]: Loss 0.012100894
+Epoch [15]: Loss 0.012052082
+Epoch [15]: Loss 0.012009957
+Epoch [15]: Loss 0.011165262
+Epoch [15]: Loss 0.011827395
+Epoch [15]: Loss 0.011070062
+Epoch [15]: Loss 0.010764798
+Validation: Loss 0.0107108895 Accuracy 1.0
+Validation: Loss 0.01130778 Accuracy 1.0
+Epoch [16]: Loss 0.011075286
+Epoch [16]: Loss 0.010561047
+Epoch [16]: Loss 0.010730274
+Epoch [16]: Loss 0.01040523
+Epoch [16]: Loss 0.010295331
+Epoch [16]: Loss 0.010239704
+Epoch [16]: Loss 0.008787477
+Validation: Loss 0.009679161 Accuracy 1.0
+Validation: Loss 0.010235574 Accuracy 1.0
+Epoch [17]: Loss 0.010150021
+Epoch [17]: Loss 0.009025937
+Epoch [17]: Loss 0.010305108
+Epoch [17]: Loss 0.009451433
+Epoch [17]: Loss 0.008786827
+Epoch [17]: Loss 0.009461327
+Epoch [17]: Loss 0.009145365
+Validation: Loss 0.008837718 Accuracy 1.0
+Validation: Loss 0.009345846 Accuracy 1.0
+Epoch [18]: Loss 0.009202937
+Epoch [18]: Loss 0.009076397
+Epoch [18]: Loss 0.008618592
+Epoch [18]: Loss 0.0089428285
+Epoch [18]: Loss 0.008269383
+Epoch [18]: Loss 0.008285256
+Epoch [18]: Loss 0.0081358375
+Validation: Loss 0.008113936 Accuracy 1.0
+Validation: Loss 0.008590452 Accuracy 1.0
+Epoch [19]: Loss 0.0085326275
+Epoch [19]: Loss 0.0076831374
+Epoch [19]: Loss 0.00838451
+Epoch [19]: Loss 0.008625489
+Epoch [19]: Loss 0.0076436503
+Epoch [19]: Loss 0.0076102773
+Epoch [19]: Loss 0.0065414836
+Validation: Loss 0.0074992427 Accuracy 1.0
+Validation: Loss 0.007939625 Accuracy 1.0
+Epoch [20]: Loss 0.007730671
+Epoch [20]: Loss 0.007739809
+Epoch [20]: Loss 0.007778803
+Epoch [20]: Loss 0.007438408
+Epoch [20]: Loss 0.006755059
+Epoch [20]: Loss 0.0070469957
+Epoch [20]: Loss 0.0076075913
+Validation: Loss 0.0069592963 Accuracy 1.0
+Validation: Loss 0.0073753586 Accuracy 1.0
+Epoch [21]: Loss 0.007636947
+Epoch [21]: Loss 0.0075168293
+Epoch [21]: Loss 0.006784993
+Epoch [21]: Loss 0.0066547818
+Epoch [21]: Loss 0.005815437
+Epoch [21]: Loss 0.006967116
+Epoch [21]: Loss 0.0070822276
+Validation: Loss 0.0064856308 Accuracy 1.0
+Validation: Loss 0.0068737892 Accuracy 1.0
+Epoch [22]: Loss 0.006496722
+Epoch [22]: Loss 0.006509331
+Epoch [22]: Loss 0.00654303
+Epoch [22]: Loss 0.0064210794
+Epoch [22]: Loss 0.0061733034
+Epoch [22]: Loss 0.0063228123
+Epoch [22]: Loss 0.0070626647
+Validation: Loss 0.0060650506 Accuracy 1.0
+Validation: Loss 0.0064297765 Accuracy 1.0
+Epoch [23]: Loss 0.005854826
+Epoch [23]: Loss 0.0063444646
+Epoch [23]: Loss 0.0061396896
+Epoch [23]: Loss 0.0058893454
+Epoch [23]: Loss 0.006081604
+Epoch [23]: Loss 0.006178025
+Epoch [23]: Loss 0.0047367197
+Validation: Loss 0.0056867828 Accuracy 1.0
+Validation: Loss 0.006031164 Accuracy 1.0
+Epoch [24]: Loss 0.005546666
+Epoch [24]: Loss 0.0057993727
+Epoch [24]: Loss 0.0057917824
+Epoch [24]: Loss 0.0055120206
+Epoch [24]: Loss 0.0055019185
+Epoch [24]: Loss 0.0057529802
+Epoch [24]: Loss 0.005866733
+Validation: Loss 0.005351955 Accuracy 1.0
+Validation: Loss 0.0056774444 Accuracy 1.0
+Epoch [25]: Loss 0.005498489
+Epoch [25]: Loss 0.0056727026
+Epoch [25]: Loss 0.005231231
+Epoch [25]: Loss 0.0050940583
+Epoch [25]: Loss 0.0055276067
+Epoch [25]: Loss 0.0048324983
+Epoch [25]: Loss 0.0058748657
+Validation: Loss 0.005047309 Accuracy 1.0
+Validation: Loss 0.005354528 Accuracy 1.0
+</code></pre></div>
+<hr />
+<p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../Basics/main/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Julia &amp; Lux for the Uninitiated" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Julia & Lux for the Uninitiated
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../../intermediate/NeuralODE/main/" class="md-footer__link md-footer__link--next" aria-label="Next: MNIST Classification using NeuralODE" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              MNIST Classification using NeuralODE
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "toc.integrate", "header.autohide"], "search": "../../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.0238f547.min.js"></script>
+      
+        <script src="../../../../../_static/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

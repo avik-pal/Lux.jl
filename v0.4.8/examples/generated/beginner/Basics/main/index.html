@@ -1,0 +1,1398 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Lux.jl">
+      
+      
+        <meta name="author" content="Avik Pal">
+      
+      
+        <link rel="canonical" href="http://lux.csail.mit.edu/examples/generated/beginner/Basics/main/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Julia & Lux for the Uninitiated - Lux.jl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Lato";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/custom.css">
+    
+      <link rel="stylesheet" href="../../../../../assets/Documenter.css">
+    
+      <link rel="stylesheet" href="../../../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#julia-lux-for-the-uninitiated" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Lux.jl" class="md-header__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lux.jl
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Julia & Lux for the Uninitiated
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Lux.jl" class="md-nav__button md-logo" aria-label="Lux.jl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Lux.jl
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/avik-pal/Lux.jl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    avik-pal/Lux.jl
+  </div>
+</a>
+
+<a href="https://twitter.com/avikpal1410" title="Go to Twitter" class="md-source">
+  <div class="md-source__icon md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @avikpal1410
+  </div>
+</a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Lux.jl: Explicitly Parameterized Neural Networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../introduction/overview/" class="md-nav__link">
+        All about Lux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../introduction/ecosystem/" class="md-nav__link">
+        Ecosystem
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../examples/" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Beginner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beginner" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Beginner
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Julia & Lux for the Uninitiated
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Julia & Lux for the Uninitiated
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arrays" class="md-nav__link">
+    Arrays
+  </a>
+  
+    <nav class="md-nav" aria-label="Arrays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-arrays" class="md-nav__link">
+    CUDA Arrays
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#immutability" class="md-nav__link">
+    (Im)mutability
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-randomness" class="md-nav__link">
+    Managing Randomness
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-differentiation" class="md-nav__link">
+    Automatic Differentiation
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatic Differentiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gradients" class="md-nav__link">
+    Gradients
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jacobian-vector-product" class="md-nav__link">
+    Jacobian-Vector Product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-jacobian-product" class="md-nav__link">
+    Vector-Jacobian Product
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-regression" class="md-nav__link">
+    Linear Regression
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SimpleRNN/main/" class="md-nav__link">
+        Training a Simple LSTM
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Intermediate
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Intermediate" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Intermediate
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intermediate/NeuralODE/main/" class="md-nav__link">
+        MNIST Classification using NeuralODE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intermediate/BayesianNN/main/" class="md-nav__link">
+        Bayesian Neural Network
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../manual/interface/" class="md-nav__link">
+        Lux Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../manual/migrate_from_flux/" class="md-nav__link">
+        Migrating from Flux to Lux
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/layers/" class="md-nav__link">
+        Layers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/functional/" class="md-nav__link">
+        Functional
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/core/" class="md-nav__link">
+        Core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../api/utilities/" class="md-nav__link">
+        Utilities
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Frameworks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Frameworks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Frameworks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../lib/Boltz/" class="md-nav__link">
+        Boltz.jl
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Development Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Development Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../devdocs/style_guide/" class="md-nav__link">
+        Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../devdocs/layer_implementation/" class="md-nav__link">
+        Layer Implementation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<p><a id='Julia-and-Lux-for-the-Uninitiated'></a></p>
+<p><a id='Julia-and-Lux-for-the-Uninitiated-1'></a></p>
+<h1 id="julia-lux-for-the-uninitiated">Julia &amp; Lux for the Uninitiated<a class="headerlink" href="#julia-lux-for-the-uninitiated" title="Permanent link">¤</a></h1>
+<p>This is a quick intro to <a href="https://github.com/avik-pal/:ux.jl">Lux</a> loosely based on:</p>
+<ol>
+<li><a href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">PyTorch's tutorial</a>.</li>
+<li><a href="https://fluxml.ai/tutorials/2020/09/15/deep-learning-flux.html">Flux's tutorial</a>.</li>
+<li><a href="https://flax.readthedocs.io/en/latest/notebooks/jax_for_the_impatient.html">Flax's tutorial</a>.</li>
+</ol>
+<p>It introduces basic Julia programming, as well <code>Zygote</code>, a source-to-source automatic differentiation (AD) framework in Julia. We'll use these tools to build a very simple neural network. Let's start with importing <code>Lux.jl</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Lux</span><span class="p">,</span><span class="w"> </span><span class="n">Random</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  Activating project at `~/work/Lux.jl/Lux.jl/examples`
+</code></pre></div>
+<p>Now let us control the randomness in our code using proper Pseudo Random Number Generator (PRNG)</p>
+<div class="highlight"><pre><span></span><code><span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"></span>
+<span class="n">Random</span><span class="o">.</span><span class="n">seed!</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Random.TaskLocalRNG()
+</code></pre></div>
+<p><a id='Arrays'></a></p>
+<p><a id='Arrays-1'></a></p>
+<h2 id="arrays">Arrays<a class="headerlink" href="#arrays" title="Permanent link">¤</a></h2>
+<p>The starting point for all of our models is the <code>Array</code> (sometimes referred to as a <code>Tensor</code> in other frameworks). This is really just a list of numbers, which might be arranged into a shape like a square. Let's write down an array with three elements.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>3-element Vector{Int64}:
+ 1
+ 2
+ 3
+</code></pre></div>
+<p>Here's a matrix – a square array with four elements.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>2×2 Matrix{Int64}:
+ 1  2
+ 3  4
+</code></pre></div>
+<p>We often work with arrays of thousands of elements, and don't usually write them down by hand. Here's how we can create an array of 5×3 = 15 elements, each a random number from zero to one.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float64}:
+ 0.455238   0.746943   0.193291
+ 0.547642   0.746801   0.116989
+ 0.773354   0.97667    0.899766
+ 0.940585   0.0869468  0.422918
+ 0.0296477  0.351491   0.707534
+</code></pre></div>
+<p>There's a few functions like this; try replacing <code>rand</code> with <code>ones</code>, <code>zeros</code>, or <code>randn</code>.</p>
+<p>By default, Julia works stores numbers is a high-precision format called <code>Float64</code>. In ML we often don't need all those digits, and can ask Julia to work with <code>Float32</code> instead. We can even ask for more digits using <code>BigFloat</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="kt">BigFloat</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{BigFloat}:
+ 0.981339    0.793159  0.459019
+ 0.043883    0.624384  0.56055
+ 0.164786    0.524008  0.0355555
+ 0.414769    0.577181  0.621958
+ 0.00823197  0.30215   0.655881
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float32}:
+ 0.567794   0.369178   0.342539
+ 0.0985227  0.201145   0.587206
+ 0.776598   0.148248   0.0851708
+ 0.723731   0.0770206  0.839303
+ 0.404728   0.230954   0.679087
+</code></pre></div>
+<p>We can ask the array how many elements it has.</p>
+<div class="highlight"><pre><span></span><code><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>15
+</code></pre></div>
+<p>Or, more specifically, what size it has.</p>
+<div class="highlight"><pre><span></span><code><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(5, 3)
+</code></pre></div>
+<p>We sometimes want to see some elements of the array on their own.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float32}:
+ 0.567794   0.369178   0.342539
+ 0.0985227  0.201145   0.587206
+ 0.776598   0.148248   0.0851708
+ 0.723731   0.0770206  0.839303
+ 0.404728   0.230954   0.679087
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.58720636f0
+</code></pre></div>
+<p>This means get the second row and the third column. We can also get every row of the third column.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5-element Vector{Float32}:
+ 0.34253937
+ 0.58720636
+ 0.085170805
+ 0.8393034
+ 0.67908657
+</code></pre></div>
+<p>We can add arrays, and subtract them, which adds or subtracts each element of the array.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float32}:
+ 1.13559   0.738356  0.685079
+ 0.197045  0.40229   1.17441
+ 1.5532    0.296496  0.170342
+ 1.44746   0.154041  1.67861
+ 0.809456  0.461908  1.35817
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float32}:
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+</code></pre></div>
+<p>Julia supports a feature called <em>broadcasting</em>, using the <code>.</code> syntax. This tiles small arrays (or single numbers) to fill bigger ones.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×3 Matrix{Float32}:
+ 1.56779  1.36918  1.34254
+ 1.09852  1.20114  1.58721
+ 1.7766   1.14825  1.08517
+ 1.72373  1.07702  1.8393
+ 1.40473  1.23095  1.67909
+</code></pre></div>
+<p>We can see Julia tile the column vector <code>1:5</code> across all rows of the larger array.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×5 Matrix{Float64}:
+ 1.0  1.0  1.0  1.0  1.0
+ 2.0  2.0  2.0  2.0  2.0
+ 3.0  3.0  3.0  3.0  3.0
+ 4.0  4.0  4.0  4.0  4.0
+ 5.0  5.0  5.0  5.0  5.0
+</code></pre></div>
+<p>The x' syntax is used to transpose a column <code>1:5</code> into an equivalent row, and Julia will tile that across columns.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">)</span><span class="o">&#39;</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×5 Matrix{Float64}:
+ 1.0  2.0  3.0  4.0  5.0
+ 1.0  2.0  3.0  4.0  5.0
+ 1.0  2.0  3.0  4.0  5.0
+ 1.0  2.0  3.0  4.0  5.0
+ 1.0  2.0  3.0  4.0  5.0
+</code></pre></div>
+<p>We can use this to make a times table.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">)</span><span class="o">&#39;</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5×5 Matrix{Int64}:
+ 1   2   3   4   5
+ 2   4   6   8  10
+ 3   6   9  12  15
+ 4   8  12  16  20
+ 5  10  15  20  25
+</code></pre></div>
+<p>Finally, and importantly for machine learning, we can conveniently do things like matrix multiply.</p>
+<div class="highlight"><pre><span></span><code><span class="n">W</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
+<span class="n">W</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5-element Vector{Float64}:
+  1.2197981041108443
+ -2.62625877100596
+ -2.8573820474674845
+ -2.4319346874291314
+  1.010866857715021
+</code></pre></div>
+<p>Julia's arrays are very powerful, and you can learn more about what they can do <a href="https://docs.julialang.org/en/v1/manual/arrays/">here</a>.</p>
+<p><a id='CUDA-Arrays'></a></p>
+<p><a id='CUDA-Arrays-1'></a></p>
+<h3 id="cuda-arrays">CUDA Arrays<a class="headerlink" href="#cuda-arrays" title="Permanent link">¤</a></h3>
+<p>CUDA functionality is provided separately by the <a href="https://github.com/JuliaGPU/CUDA.jl">CUDA.jl package</a>. If you have a GPU and CUDA available, <code>Lux</code> will automatically build the required CUDA dependencies using <code>CUDA.jl</code>.</p>
+<p>You can manually add <code>CUDA</code>. Once CUDA is loaded you can move any array to the GPU with the <code>cu</code> function (or the <code>gpu</code> function exported by `Lux``), and it supports all of the above operations with the same syntax.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># using CUDA</span><span class="w"></span>
+<span class="c"># x = cu(rand(5, 3))</span><span class="w"></span>
+</code></pre></div>
+<p><a id='(Im)mutability'></a></p>
+<p><a id='(Im)mutability-1'></a></p>
+<h2 id="immutability">(Im)mutability<a class="headerlink" href="#immutability" title="Permanent link">¤</a></h2>
+<p>Lux as you might have read is <a href="http://lux.csail.mit.edu/dev/introduction/overview/#Design-Principles">Immutable by convention</a> which means that the core library is built without any form of mutation and all functions are pure. However, we don't enfore it in any form. We do <strong>strongly recommend</strong> that users extending this framework for their respective applications don't mutate their arrays.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>2×4 reshape(::UnitRange{Int64}, 2, 4) with eltype Int64:
+ 1  3  5  7
+ 2  4  6  8
+</code></pre></div>
+<p>To update this array, we should first copy the array.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x_copy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+<span class="n">view</span><span class="p">(</span><span class="n">x_copy</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">.=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Original Array &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mutated Array &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x_copy</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Original Array [1 3 5 7; 2 4 6 8]
+Mutated Array [0 3 5 7; 0 4 6 8]
+</code></pre></div>
+<p>Note that our current default AD engine (Zygote) is unable to differentiate through this mutation, however, for these specialized cases it is quite trivial to write custom backward passes. (This problem will be fixed once we move towards Enzyme.jl)</p>
+<p><a id='Managing-Randomness'></a></p>
+<p><a id='Managing-Randomness-1'></a></p>
+<h2 id="managing-randomness">Managing Randomness<a class="headerlink" href="#managing-randomness" title="Permanent link">¤</a></h2>
+<p>We relu on the Julia StdLib <code>Random</code> for managing the randomness in our execution. First, we create an PRNG and seed it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"> </span><span class="c"># Creates a Xoshiro PRNG</span><span class="w"></span>
+<span class="n">Random</span><span class="o">.</span><span class="n">seed!</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Random.TaskLocalRNG()
+</code></pre></div>
+<p>If we call any function that relies on <code>rng</code> and uses it via <code>randn</code>, <code>rand</code>, etc. <code>rng</code> will be mutated. As we have already established we care a lot about immutability, hence we should use <code>Lux.replicate</code> on PRNG before using them.</p>
+<p>First, let us run a random number generator 3 times with the <code>replicate</code>d rng</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Iteration </span><span class="si">$i</span><span class="s"> &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">Lux</span><span class="o">.</span><span class="n">replicate</span><span class="p">(</span><span class="n">rng</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Iteration 1 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
+Iteration 2 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
+Iteration 3 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
+</code></pre></div>
+<p>As expected we get the same output. We can remove the <code>replicate</code> call and we will get different outputs</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Iteration </span><span class="si">$i</span><span class="s"> &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Iteration 1 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
+Iteration 2 [0.018743665453639813, 0.8601828553599953, 0.6556360448565952, 0.7746656838366666, 0.7817315740767116, 0.5553797706980106, 0.1261990389976131, 0.4488101521328277, 0.624383955429775, 0.05657739601024536]
+Iteration 3 [0.19597391412112541, 0.6830945313415872, 0.6776220912718907, 0.6456416023530093, 0.6340362477836592, 0.5595843665394066, 0.5675557670686644, 0.34351700231383653, 0.7237308297251812, 0.3691778381831775]
+</code></pre></div>
+<p><a id='Automatic-Differentiation'></a></p>
+<p><a id='Automatic-Differentiation-1'></a></p>
+<h2 id="automatic-differentiation">Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Permanent link">¤</a></h2>
+<p>Julia has quite a few (maybe too many) AD tools. For the purpose of this tutorial, we will use <a href="https://github.com/JuliaDiff/AbstractDifferentiation.jl">AbstractDifferentiation.jl</a> which provides an uniform API across multiple AD backends. For the backends we will use:</p>
+<ol>
+<li><a href="https://github.com/JuliaDiff/ForwardDiff.jl">ForwardDiff.jl</a> – For Jacobian-Vector Product (JVP)</li>
+<li><a href="https://github.com/FluxML/Zygote.jl">Zygote.jl</a> – For Vector-Jacobian Product (VJP)</li>
+</ol>
+<p><em>Slight Detour</em>: We have had several questions regarding if we will be considering any other AD system for the reverse-diff backend. For now we will stick to Zygote.jl, however once <a href="https://github.com/EnzymeAD/Enzyme.jl">Enzyme.jl</a> has support for custom rules and we have tested Lux extensively with it, we will make the switch.</p>
+<p>Even though, theoretically, a VJP (Vector-Jacobian product - reverse autodiff) and a JVP (Jacobian-Vector product - forward-mode autodiff) are similar—they compute a product of a Jacobian and a vector—they differ by the computational complexity of the operation. In short, when you have a large number of parameters (hence a wide matrix), a JVP is less efficient computationally than a VJP, and, conversely, a JVP is more efficient when the Jacobian matrix is a tall matrix.</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">ForwardDiff</span><span class="p">,</span><span class="w"> </span><span class="n">Zygote</span><span class="p">,</span><span class="w"> </span><span class="n">AbstractDifferentiation</span><span class="w"></span>
+</code></pre></div>
+<p><a id='Gradients'></a></p>
+<p><a id='Gradients-1'></a></p>
+<h3 id="gradients">Gradients<a class="headerlink" href="#gradients" title="Permanent link">¤</a></h3>
+<p>For our first example, consider a simple function computing <span class="arithmatex">\(f(x) = \frac{1}{2}x^T x\)</span>, where <span class="arithmatex">\(\nabla f(x) = x\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="n">∇f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"></span>
+<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>4-element Vector{Float32}:
+ -0.4051151
+ -0.4593922
+  0.92155594
+  1.1871622
+</code></pre></div>
+<p>Let's use AbstractDifferentiation and Zygote to compute the gradients</p>
+<div class="highlight"><pre><span></span><code><span class="n">println</span><span class="p">(</span><span class="s">&quot;Actual Gradient: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">∇f</span><span class="p">(</span><span class="n">v</span><span class="p">))</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Gradient via Reverse Mode AD (Zygote): &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">AD</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ZygoteBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Gradient via Forward Mode AD (ForwardDiff): &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">AD</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ForwardDiffBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Actual Gradient: Float32[-0.4051151, -0.4593922, 0.92155594, 1.1871622]
+Computed Gradient via Reverse Mode AD (Zygote): Float32[-0.4051151, -0.4593922, 0.92155594, 1.1871622]
+Computed Gradient via Forward Mode AD (ForwardDiff): Float32[-0.4051151, -0.4593922, 0.92155594, 1.1871622]
+</code></pre></div>
+<p>Note that <code>AD.gradient</code> will only work for scalar valued outputs</p>
+<p><a id='Jacobian-Vector-Product'></a></p>
+<p><a id='Jacobian-Vector-Product-1'></a></p>
+<h3 id="jacobian-vector-product">Jacobian-Vector Product<a class="headerlink" href="#jacobian-vector-product" title="Permanent link">¤</a></h3>
+<p>I will defer the discussion on forward-mode AD to https://book.sciml.ai/notes/08/. Here let us just look at a mini example on how to use it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5-element Vector{Float32}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+</code></pre></div>
+<p>Construct the pushforward function.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pf_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AD</span><span class="o">.</span><span class="n">value_and_pushforward_function</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ForwardDiffBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#17 (generic function with 1 method)
+</code></pre></div>
+<p>Compute the jvp</p>
+<div class="highlight"><pre><span></span><code><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">jvp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pf_f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Value: f(&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;) = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;JVP: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">jvp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Computed Value: f(Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]) = Float32[0.3850005, 0.71437216, 0.0016247969, 0.031389393, 0.0043726736]
+JVP: Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]
+</code></pre></div>
+<p><a id='Vector-Jacobian-Product'></a></p>
+<p><a id='Vector-Jacobian-Product-1'></a></p>
+<h3 id="vector-jacobian-product">Vector-Jacobian Product<a class="headerlink" href="#vector-jacobian-product" title="Permanent link">¤</a></h3>
+<p>Using the same function and inputs, let us compute the VJP</p>
+<div class="highlight"><pre><span></span><code><span class="n">pb_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AD</span><span class="o">.</span><span class="n">value_and_pullback_function</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ZygoteBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#25 (generic function with 1 method)
+</code></pre></div>
+<p>Compute the vjp</p>
+<div class="highlight"><pre><span></span><code><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">vjp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pb_f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Value: f(&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;) = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;VJP: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vjp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Computed Value: f(Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]) = Float32[0.3850005, 0.71437216, 0.0016247969, 0.031389393, 0.0043726736]
+VJP: Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]
+</code></pre></div>
+<p><a id='Linear-Regression'></a></p>
+<p><a id='Linear-Regression-1'></a></p>
+<h2 id="linear-regression">Linear Regression<a class="headerlink" href="#linear-regression" title="Permanent link">¤</a></h2>
+<p>Finally, now let us consider a linear regression problem. From a set of data-points <span class="arithmatex">\(\left\{ (x_i, y_i), i \in \left\{ 1, \dots, k \right\}, x_i \in \mathbb{R}^n, y_i \in \mathbb{R}^m \right\}\)</span>, we try to find a set of parameters <span class="arithmatex">\(W\)</span> and <span class="arithmatex">\(b\)</span>, s.t. <span class="arithmatex">\(f_{W,b}(x) = Wx + b\)</span> minimizes the mean squared error:</p>
+<div class="arithmatex">\[
+L(W, b) \longrightarrow \sum_{i = 1}^{k} \frac{1}{2} \| y_i - f_{W,b}(x_i) \|_2^2
+\]</div>
+<p>We can write <code>f</code> from scratch, but to demonstrate <code>Lux</code> let us use the <code>Dense</code> layer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"></span>
+<span class="n">Random</span><span class="o">.</span><span class="n">seed!</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Random.TaskLocalRNG()
+</code></pre></div>
+<p>Let us initialize the parameters and states (in this case it is empty) for the model</p>
+<div class="highlight"><pre><span></span><code><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">)</span><span class="w"></span>
+<span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">ComponentArray</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ComponentVector{Float32}(weight = Float32[-0.5583162 0.3457679 … -0.35419345 0.039559156; -0.05661944 -0.4899126 … 0.22614014 0.27704597; … ; 0.06026341 -0.11202827 … 0.42526972 -0.3576447; 0.23414856 -0.5949539 … 0.08254115 -0.5224755], bias = Float32[0.0; 0.0; … ; 0.0; 0.0;;])
+</code></pre></div>
+<p>Set problem dimensions.</p>
+<div class="highlight"><pre><span></span><code><span class="n">n_samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
+<span class="n">x_dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="n">y_dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5
+</code></pre></div>
+<p>Generate random ground truth W and b.</p>
+<div class="highlight"><pre><span></span><code><span class="n">W</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">y_dim</span><span class="p">,</span><span class="w"> </span><span class="n">x_dim</span><span class="p">)</span><span class="w"></span>
+<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">y_dim</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5-element Vector{Float32}:
+  0.68468636
+ -0.57578707
+  0.0594993
+ -0.9436797
+  1.5164032
+</code></pre></div>
+<p>Generate samples with additional noise.</p>
+<div class="highlight"><pre><span></span><code><span class="n">x_samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">x_dim</span><span class="p">,</span><span class="w"> </span><span class="n">n_samples</span><span class="p">)</span><span class="w"></span>
+<span class="n">y_samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x_samples</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="mf">0.01f0</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">y_dim</span><span class="p">,</span><span class="w"> </span><span class="n">n_samples</span><span class="p">)</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;x shape: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">x_samples</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;; y shape: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">y_samples</span><span class="p">))</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>x shape: (10, 20); y shape: (5, 20)
+</code></pre></div>
+<p>For updating our parameters let's use <a href="https://github.com/FluxML/Optimisers.jl">Optimisers.jl</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Optimisers</span><span class="w"></span>
+
+<span class="n">opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">Descent</span><span class="p">(</span><span class="mf">0.01f0</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Optimisers.Descent{Float32}(0.01f0)
+</code></pre></div>
+<p>Initialize the initial state of the optimiser</p>
+<div class="highlight"><pre><span></span><code><span class="n">opt_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Leaf(Descent{Float32}(0.01), nothing)
+</code></pre></div>
+<p>Define the loss function</p>
+<div class="highlight"><pre><span></span><code><span class="n">mse</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">abs2</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">.-</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="n">mse</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">abs2</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">.+</span><span class="w"> </span><span class="n">bias</span><span class="w"> </span><span class="o">.-</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="n">loss_function</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mse</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Loss Value with ground true W &amp; b: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mse</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">x_samples</span><span class="p">,</span><span class="w"> </span><span class="n">y_samples</span><span class="p">))</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="w"></span>
+<span class="w">    </span><span class="c"># In actual code, don&#39;t use globals. But here I will simply for the sake of demonstration</span><span class="w"></span>
+<span class="w">    </span><span class="k">global</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="n">opt_state</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Compute the gradient</span><span class="w"></span>
+<span class="w">    </span><span class="n">gs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gradient</span><span class="p">(</span><span class="n">loss_function</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">x_samples</span><span class="p">,</span><span class="w"> </span><span class="n">y_samples</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="c"># Perform parameter update</span><span class="w"></span>
+<span class="w">    </span><span class="n">opt_state</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opt_state</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">gs</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">100</span><span class="w"></span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Loss Value after </span><span class="si">$i</span><span class="s"> iterations: &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">mse</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="n">x_samples</span><span class="p">,</span><span class="w"> </span><span class="n">y_samples</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Loss Value with ground true W &amp; b: 0.009175307
+Loss Value after 1 iterations: 165.57005
+Loss Value after 11 iterations: 4.351237
+Loss Value after 21 iterations: 0.6856849
+Loss Value after 31 iterations: 0.15421417
+Loss Value after 41 iterations: 0.041469414
+Loss Value after 51 iterations: 0.014032223
+Loss Value after 61 iterations: 0.006883738
+Loss Value after 71 iterations: 0.004938521
+Loss Value after 81 iterations: 0.004391277
+Loss Value after 91 iterations: 0.0042331247
+Loss Value after 100 iterations: 0.0041888584
+</code></pre></div>
+<hr />
+<p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../../../examples/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../SimpleRNN/main/" class="md-footer__link md-footer__link--next" aria-label="Next: Training a Simple LSTM" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Training a Simple LSTM
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "toc.integrate", "header.autohide"], "search": "../../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../../../../../_static/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
