@@ -850,10 +850,10 @@
 <span class="n">dropout</span><span class="p">(</span><span class="n">rng</span><span class="o">::</span><span class="kt">AbstractRNG</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="o">::</span><span class="kt">Val</span><span class="p">{</span><span class="kt">training</span><span class="p">},</span><span class="w"> </span><span class="o">::</span><span class="kt">Val</span><span class="p">{</span><span class="kt">update_mask</span><span class="p">})</span><span class="w"></span>
 </code></pre></div>
 <p>If <code>training</code> then dropout is applied on <code>x</code> with probability <code>p</code> along <code>dims</code>. If <code>mask</code> is passed it is used if <code>update_mask</code> is false. If <code>update_mask</code> is true then the mask is generated and used.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/128f2b9e1a1951dfba30593c88acfe4f7c1ca73c/src/nnlib.jl#L126-L133' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/36e329d9930cf75f50e66763ab0fddcd31bf4917/src/nnlib.jl#L123-L130' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.normalization' href='#Lux.normalization'>#</a>
 <strong><code>Lux.normalization</code></strong> &mdash; <em>Function</em>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">running_mean</span><span class="p">,</span><span class="w"> </span><span class="n">running_var</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="p">,</span><span class="w"> </span><span class="n">reduce_dims</span><span class="p">,</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">running_mean</span><span class="p">,</span><span class="w"> </span><span class="n">running_var</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="p">,</span><span class="w"> </span><span class="o">::</span><span class="kt">Val</span><span class="p">{</span><span class="kt">reduce_dims</span><span class="p">},</span><span class="w"></span>
 <span class="w">              </span><span class="o">::</span><span class="kt">Val</span><span class="p">{</span><span class="kt">training</span><span class="p">},</span><span class="w"> </span><span class="n">momentum</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Performs BatchNorm/GroupNorm/InstanceNorm based on input configuration</p>
@@ -861,7 +861,7 @@
 <p class="admonition-title">Note</p>
 <p>Detailed docs are WIP</p>
 </div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/128f2b9e1a1951dfba30593c88acfe4f7c1ca73c/src/nnlib.jl#L23-L32' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/36e329d9930cf75f50e66763ab0fddcd31bf4917/src/nnlib.jl#L21-L30' class='documenter-source'>source</a><br></p>
 
               
             </article>
