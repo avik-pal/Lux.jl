@@ -1,5 +1,10 @@
 # v0.4
 
+## v0.4.10
+
+  - Introduces a testing array -- `EmptyFixedSizedArray`
+  - Allows static size inference for reshape layer.
+
 ## v0.4.8
 
   - Deprecations

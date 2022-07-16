@@ -16,16 +16,16 @@ Reshapes the passed array to have a size of `(dims..., :)`
   - AbstractArray of size `(dims..., size(x, ndims(x)))`
   - Empty `NamedTuple()`
 """
-struct ReshapeLayer{N} <: AbstractExplicitLayer
-    dims::NTuple{N, Int}
+struct ReshapeLayer{dims} <: AbstractExplicitLayer end
+
+ReshapeLayer(dims) = ReshapeLayer{dims}()
+
+@inline function (r::ReshapeLayer{dims})(x::AbstractArray, ps, st::NamedTuple) where {dims}
+    return reshape(x, dims..., size(x, ndims(x))), st
 end
 
-@inline function (r::ReshapeLayer)(x::AbstractArray, ps, st::NamedTuple)
-    return reshape(x, r.dims..., size(x, ndims(x))), st
-end
-
-function Base.show(io::IO, r::ReshapeLayer)
-    return print(io, "ReshapeLayer(output_dims = (", join(r.dims, ", "), ", :))")
+function Base.show(io::IO, r::ReshapeLayer{dims}) where {dims}
+    return print(io, "ReshapeLayer(output_dims = (", join(dims, ", "), ", :))")
 end
 
 """

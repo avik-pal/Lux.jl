@@ -116,10 +116,12 @@ function statelength(l::BatchNorm{affine, track_stats}) where {affine, track_sta
     return (track_stats ? 2 * l.chs : 0) + 1
 end
 
+_bn_reduce_dims(::Val{N}) where {N} = Val(filter(i -> i != N - 1, ntuple(identity, N)))
+
 function (BN::BatchNorm)(x::AbstractArray{T, N}, ps, st::NamedTuple) where {T, N}
     x_normalized, xmean, xvar = normalization(x, st.running_mean, st.running_var, ps.scale,
                                               ps.bias, BN.activation,
-                                              collect([1:(N - 2); N]), st.training,
+                                              _bn_reduce_dims(Val(N)), st.training,
                                               BN.momentum, BN.epsilon)
 
     st = merge(st, (running_mean=xmean, running_var=xvar))
@@ -306,13 +308,18 @@ function statelength(l::GroupNorm{affine, track_stats}) where {affine, track_sta
     return (track_stats ? 2 * l.groups : 0) + 1
 end
 
+_gn_reduce_dims(::Val{N}) where {N} = Val(ntuple(identity, N - 1))
+
+# FIXME(@avik-pal): Static Shape Inference requires us to store the group count as a type
+#                   parameter.
 function (GN::GroupNorm)(x::AbstractArray{T, N}, ps, st::NamedTuple) where {T, N}
     sz = size(x)
     x_ = reshape(x, sz[1:(N - 2)]..., sz[N - 1] ÷ GN.groups, GN.groups, sz[N])
 
     x_normalized, xmean, xvar = normalization(x_, st.running_mean, st.running_var, ps.scale,
-                                              ps.bias, GN.activation, collect(1:(N - 1)),
-                                              st.training, GN.momentum, GN.epsilon)
+                                              ps.bias, GN.activation,
+                                              _gn_reduce_dims(Val(N)), st.training,
+                                              GN.momentum, GN.epsilon)
 
     st = merge(st, (running_mean=xmean, running_var=xvar))
 

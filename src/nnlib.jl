@@ -6,7 +6,7 @@
                                    running_var::AbstractArray{T, N},
                                    batchmean::AbstractArray{T, N},
                                    batchvar::AbstractArray{T, N}, momentum::T,
-                                   reduce_dims) where {T, N}
+                                   ::Val{reduce_dims}) where {T, N, reduce_dims}
     sx = size(x)
     m = T(prod((sx[i] for i in reduce_dims)))
     if reduce_dims[end] != N
@@ -19,7 +19,7 @@
 end
 
 """
-    normalization(x, running_mean, running_var, scale, bias, activation, reduce_dims,
+    normalization(x, running_mean, running_var, scale, bias, activation, ::Val{reduce_dims},
                   ::Val{training}, momentum, epsilon)
 
 Performs BatchNorm/GroupNorm/InstanceNorm based on input configuration
@@ -50,10 +50,11 @@ end
 
 @generated function normalization_forward(x::AbstractArray{T, N}, running_mean::RM,
                                           running_var::RV, scale::S, bias::B, activation::A,
-                                          reduce_dims, ::Val{training},
+                                          r::Val{reduce_dims}, ::Val{training},
                                           momentum::T=T(0.1f0),
                                           epsilon::T=T(1.0f-5)) where {RM, RV, S, B, T, N,
-                                                                       A, training}
+                                                                       A, training,
+                                                                       reduce_dims}
     calls = []
     if !training
         if RM == Nothing
@@ -73,21 +74,20 @@ end
             push!(calls,
                   :((running_mean, running_var) = update_statistics(x, running_mean,
                                                                     running_var, batchmean,
-                                                                    batchvar, momentum,
-                                                                    reduce_dims)))
+                                                                    batchvar, momentum, r)))
         end
     end
 
     expr = if S != Nothing
         if A == typeof(identity)
-            :(result = scale .* (x .- batchmean) ./ sqrt.(batchvar .+ epsilon) .+ bias)
+            :(result = (scale .* (x .- batchmean) ./ sqrt.(batchvar .+ epsilon) .+ bias))
         else
             :(result = activation.(scale .* (x .- batchmean) ./
                                    sqrt.(batchvar .+ epsilon) .+ bias))
         end
     else
         if A == typeof(identity)
-            :(result = (x .- batchmean) ./ sqrt.(batchvar .+ epsilon))
+            :(result = ((x .- batchmean) ./ sqrt.(batchvar .+ epsilon)))
         else
             :(result = activation.((x .- batchmean) ./ sqrt.(batchvar .+ epsilon)))
         end
