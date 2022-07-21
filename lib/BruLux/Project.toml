@@ -1,0 +1,22 @@
+name = "BruLux"
+uuid = "65c1a4c3-44bb-4159-97f7-7a39956cf664"
+authors = ["Avik Pal <avikpal@mit.edu> and contributors"]
+version = "0.1.0"
+
+[deps]
+Boltz = "4544d5e4-abc5-4dea-817f-29e4c205d9c8"
+Functors = "d9f16b24-f501-4c13-a1f2-28368ffc5196"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Lux = "b2108857-7c20-44ae-9111-449ecde12c47"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+NNlib = "872c559c-99b0-510c-b3b7-b6c96a88d5cd"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[compat]
+julia = "1.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
