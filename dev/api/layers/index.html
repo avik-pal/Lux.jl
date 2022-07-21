@@ -939,7 +939,7 @@
 <p>An easy way to replicate an input to an NTuple is to do</p>
 <div class="highlight"><pre><span></span><code><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BranchLayer</span><span class="p">(</span><span class="n">NoOpLayer</span><span class="p">(),</span><span class="w"> </span><span class="n">NoOpLayer</span><span class="p">(),</span><span class="w"> </span><span class="n">NoOpLayer</span><span class="p">())</span><span class="w"></span>
 </code></pre></div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L244-L288' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L244-L288' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.Chain' href='#Lux.Chain'>#</a>
 <strong><code>Lux.Chain</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">Chain</span><span class="p">(</span><span class="n">layers</span><span class="o">...</span><span class="p">;</span><span class="w"> </span><span class="n">disable_optimizations</span><span class="o">::</span><span class="kt">Bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="w"></span>
@@ -981,7 +981,7 @@
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Chain</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">relu</span><span class="p">),</span><span class="w"> </span><span class="n">BatchNorm</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L406-L458' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L406-L458' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.PairwiseFusion' href='#Lux.PairwiseFusion'>#</a>
 <strong><code>Lux.PairwiseFusion</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">PairwiseFusion</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="w"> </span><span class="n">layers</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
@@ -1027,7 +1027,7 @@
 <ul>
 <li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L319-L371' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L319-L371' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.Parallel' href='#Lux.Parallel'>#</a>
 <strong><code>Lux.Parallel</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">Parallel</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="w"> </span><span class="n">layers</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
@@ -1056,7 +1056,7 @@
 <li>States of each <code>layer</code> wrapped in a NamedTuple with <code>fields = layer_1, layer_2, ..., layer_N</code></li>
 </ul>
 <p>See also <a href="./#Lux.SkipConnection"><code>SkipConnection</code></a> which is <code>Parallel</code> with one identity.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L170-L205' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L170-L205' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.SkipConnection' href='#Lux.SkipConnection'>#</a>
 <strong><code>Lux.SkipConnection</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">SkipConnection</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span><span class="w"> </span><span class="n">connection</span><span class="p">)</span><span class="w"></span>
@@ -1086,7 +1086,7 @@
 <li>States of <code>layer</code></li>
 </ul>
 <p>See <a href="./#Lux.Parallel"><code>Parallel</code></a> for a more general implementation.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L125-L158' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L125-L158' class='documenter-source'>source</a><br></p>
 <p><a id='Convolutional-Layers'></a></p>
 <p><a id='Convolutional-Layers-1'></a></p>
 <h2 id="convolutional-layers">Convolutional Layers<a class="headerlink" href="#convolutional-layers" title="Permanent link">¤</a></h2>
@@ -1146,7 +1146,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li><code>weight</code>: Convolution kernel</li>
 <li><code>bias</code>: Bias (present if <code>bias=true</code>)</li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L1' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L1' class='documenter-source'>source</a><br></p>
 <p><a id='Dropout-Layers'></a></p>
 <p><a id='Dropout-Layers-1'></a></p>
 <h2 id="dropout-layers">Dropout Layers<a class="headerlink" href="#dropout-layers" title="Permanent link">¤</a></h2>
@@ -1179,7 +1179,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 </ul>
 <p>Call <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> to switch to test mode.</p>
 <p>See also <a href="./#Lux.VariationalHiddenDropout"><code>VariationalHiddenDropout</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/dropout.jl#L1-L33' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/dropout.jl#L1-L33' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.VariationalHiddenDropout' href='#Lux.VariationalHiddenDropout'>#</a>
 <strong><code>Lux.VariationalHiddenDropout</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">VariationalHiddenDropout</span><span class="p">(</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="n">dims</span><span class="o">=:</span><span class="p">)</span><span class="w"></span>
@@ -1211,7 +1211,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 </ul>
 <p>Call <a href="../core/#Lux.testmode"><code>Lux.testmode</code></a> to switch to test mode.</p>
 <p>See also <a href="./#Lux.Dropout"><code>Dropout</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/dropout.jl#L62-L98' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/dropout.jl#L62-L98' class='documenter-source'>source</a><br></p>
 <p><a id='Pooling-Layers'></a></p>
 <p><a id='Pooling-Layers-1'></a></p>
 <h2 id="pooling-layers">Pooling Layers<a class="headerlink" href="#pooling-layers" title="Permanent link">¤</a></h2>
@@ -1234,7 +1234,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L427-L448' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L427-L448' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.AdaptiveMeanPool' href='#Lux.AdaptiveMeanPool'>#</a>
 <strong><code>Lux.AdaptiveMeanPool</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">AdaptiveMeanPool</span><span class="p">(</span><span class="n">out</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">)</span><span class="w"></span>
@@ -1254,7 +1254,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L463-L484' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L463-L484' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.GlobalMaxPool' href='#Lux.GlobalMaxPool'>#</a>
 <strong><code>Lux.GlobalMaxPool</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">GlobalMaxPool</span><span class="p">()</span><span class="w"></span>
@@ -1270,7 +1270,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a>, <a href="./#Lux.GlobalMeanPool"><code>GlobalMeanPool</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L381-L397' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L381-L397' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.GlobalMeanPool' href='#Lux.GlobalMeanPool'>#</a>
 <strong><code>Lux.GlobalMeanPool</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">GlobalMeanPool</span><span class="p">()</span><span class="w"></span>
@@ -1286,7 +1286,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a>, <a href="./#Lux.GlobalMaxPool"><code>GlobalMaxPool</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L404-L420' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L404-L420' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.MaxPool' href='#Lux.MaxPool'>#</a>
 <strong><code>Lux.MaxPool</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">MaxPool</span><span class="p">(</span><span class="n">window</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">;</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="w"></span>
@@ -1324,7 +1324,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.Conv"><code>Conv</code></a>, <a href="./#Lux.MeanPool"><code>MeanPool</code></a>, <a href="./#Lux.GlobalMaxPool"><code>GlobalMaxPool</code></a>, <a href="./#Lux.AdaptiveMaxPool"><code>AdaptiveMaxPool</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L154' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L154' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.MeanPool' href='#Lux.MeanPool'>#</a>
 <strong><code>Lux.MeanPool</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">MeanPool</span><span class="p">(</span><span class="n">window</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">;</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="w"></span>
@@ -1362,7 +1362,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
 <p>See also <a href="./#Lux.Conv"><code>Conv</code></a>, <a href="./#Lux.MaxPool"><code>MaxPool</code></a>, <a href="./#Lux.GlobalMeanPool"><code>GlobalMeanPool</code></a>, <a href="./#Lux.AdaptiveMeanPool"><code>AdaptiveMeanPool</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L221' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L221' class='documenter-source'>source</a><br></p>
 <p><a id='Recurrent-Layers'></a></p>
 <p><a id='Recurrent-Layers-1'></a></p>
 <h2 id="recurrent-layers">Recurrent Layers<a class="headerlink" href="#recurrent-layers" title="Permanent link">¤</a></h2>
@@ -1416,7 +1416,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <ul>
 <li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/recurrent.jl#L227' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/recurrent.jl#L227' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.LSTMCell' href='#Lux.LSTMCell'>#</a>
 <strong><code>Lux.LSTMCell</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">LSTMCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="p">(</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"> </span><span class="n">glorot_uniform</span><span class="p">,</span><span class="w"></span>
@@ -1472,7 +1472,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <ul>
 <li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/recurrent.jl#L116' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/recurrent.jl#L116' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.RNNCell' href='#Lux.RNNCell'>#</a>
 <strong><code>Lux.RNNCell</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">RNNCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">tanh</span><span class="p">;</span><span class="w"> </span><span class="n">bias</span><span class="o">::</span><span class="kt">Bool</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"></span>
@@ -1510,7 +1510,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <ul>
 <li><code>rng</code>: Controls the randomness (if any) in the initial state generation</li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/recurrent.jl#L1' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/recurrent.jl#L1' class='documenter-source'>source</a><br></p>
 <p><a id='Linear-Layers'></a></p>
 <p><a id='Linear-Layers-1'></a></p>
 <h2 id="linear-layers">Linear Layers<a class="headerlink" href="#linear-layers" title="Permanent link">¤</a></h2>
@@ -1546,7 +1546,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li><code>weight</code>: Weight Matrix of size <code>out_dims × in_dims</code></li>
 <li><code>bias</code>: Bias of size <code>out_dims × 1</code> (present if <code>bias=true</code>)</li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L525-L558' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L525-L558' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.Scale' href='#Lux.Scale'>#</a>
 <strong><code>Lux.Scale</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">Scale</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_weight</span><span class="o">=</span><span class="n">ones32</span><span class="p">,</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"> </span><span class="n">bias</span><span class="o">::</span><span class="kt">Bool</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
@@ -1581,7 +1581,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <p class="admonition-title">Lux 0.4.3</p>
 <p><code>Scale</code> with multiple dimensions requires at least Lux 0.4.3.</p>
 </div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L657-L693' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L657-L693' class='documenter-source'>source</a><br></p>
 <p><a id='Misc.-Helper-Layers'></a></p>
 <p><a id='Misc.-Helper-Layers-1'></a></p>
 <h2 id="misc-helper-layers">Misc. Helper Layers<a class="headerlink" href="#misc-helper-layers" title="Permanent link">¤</a></h2>
@@ -1607,7 +1607,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <p class="admonition-title">Warning</p>
 <p>This layer is deprecated and will be removed in v0.5. Use <a href="./#Lux.WrappedFunction"><code>WrappedFunction</code></a> with manual broadcasting</p>
 </div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/deprecated.jl#L59-L81' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/deprecated.jl#L59-L81' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.FlattenLayer' href='#Lux.FlattenLayer'>#</a>
 <strong><code>Lux.FlattenLayer</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">FlattenLayer</span><span class="p">()</span><span class="w"></span>
@@ -1622,13 +1622,13 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>AbstractMatrix of size <code>(:, size(x, ndims(x)))</code></li>
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L31-L44' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L31-L44' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.NoOpLayer' href='#Lux.NoOpLayer'>#</a>
 <strong><code>Lux.NoOpLayer</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">NoOpLayer</span><span class="p">()</span><span class="w"></span>
 </code></pre></div>
 <p>As the name suggests does nothing but allows pretty printing of layers. Whatever input is passed is returned.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L84-L89' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L84-L89' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.ReshapeLayer' href='#Lux.ReshapeLayer'>#</a>
 <strong><code>Lux.ReshapeLayer</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">ReshapeLayer</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span><span class="w"></span>
@@ -1647,7 +1647,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>AbstractArray of size <code>(dims..., size(x, ndims(x)))</code></li>
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L1-L18' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L1-L18' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.SelectDim' href='#Lux.SelectDim'>#</a>
 <strong><code>Lux.SelectDim</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">SelectDim</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"></span>
@@ -1667,7 +1667,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li><code>view(x,:,:,...,i,:,:,...)</code> where <code>i</code> is in position <code>d</code></li>
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L51-L70' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L51-L70' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.WrappedFunction' href='#Lux.WrappedFunction'>#</a>
 <strong><code>Lux.WrappedFunction</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">WrappedFunction</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"></span>
@@ -1686,7 +1686,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Output of <code>f(x)</code></li>
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/basic.jl#L94-L114' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/basic.jl#L94-L114' class='documenter-source'>source</a><br></p>
 <p><a id='Normalization-Layers'></a></p>
 <p><a id='Normalization-Layers-1'></a></p>
 <h2 id="normalization-layers">Normalization Layers<a class="headerlink" href="#normalization-layers" title="Permanent link">¤</a></h2>
@@ -1762,7 +1762,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <p>Passing a batch size of 1, during training will result in NaNs.</p>
 </div>
 <p>See also <a href="./#Lux.GroupNorm"><code>GroupNorm</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/normalize.jl#L3-L76' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/normalize.jl#L3-L76' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.GroupNorm' href='#Lux.GroupNorm'>#</a>
 <strong><code>Lux.GroupNorm</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">GroupNorm</span><span class="p">(</span><span class="n">chs</span><span class="o">::</span><span class="kt">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">groups</span><span class="o">::</span><span class="kt">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">activation</span><span class="o">=</span><span class="n">identity</span><span class="p">;</span><span class="w"> </span><span class="n">init_bias</span><span class="o">=</span><span class="n">zeros32</span><span class="p">,</span><span class="w"></span>
@@ -1836,7 +1836,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <p>GroupNorm doesn't have CUDNN support. The GPU fallback is not very efficient.</p>
 </div>
 <p>See also <a href="./#Lux.BatchNorm"><code>BatchNorm</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/normalize.jl#L170-L245' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/normalize.jl#L170-L245' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.WeightNorm' href='#Lux.WeightNorm'>#</a>
 <strong><code>Lux.WeightNorm</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">WeightNorm</span><span class="p">(</span><span class="n">layer</span><span class="o">::</span><span class="kt">AbstractExplicitLayer</span><span class="p">,</span><span class="w"> </span><span class="n">which_params</span><span class="o">::</span><span class="kt">NTuple</span><span class="p">{</span><span class="kt">N</span><span class="p">,</span><span class="kt">Symbol</span><span class="p">},</span><span class="w"></span>
@@ -1869,7 +1869,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <ul>
 <li>Same as that of <code>layer</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/normalize.jl#L330' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/normalize.jl#L330' class='documenter-source'>source</a><br></p>
 <p><a id='Upsampling'></a></p>
 <p><a id='Upsampling-1'></a></p>
 <h2 id="upsampling">Upsampling<a class="headerlink" href="#upsampling" title="Permanent link">¤</a></h2>
@@ -1916,7 +1916,7 @@ O_i = floor\left(\frac{I_i + pad[i] + pad[(i + N) \% length(pad)] - dilation[i] 
 <li>Upsampled Input of size <code>size</code> or of size <code>(I_1 x scale[1], ..., I_N x scale[N], C, N)</code></li>
 <li>Empty <code>NamedTuple()</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/layers/conv.jl#L288-L332' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/layers/conv.jl#L288-L332' class='documenter-source'>source</a><br></p>
 <p><a id='Index'></a></p>
 <p><a id='Index-1'></a></p>
 <h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">¤</a></h2>

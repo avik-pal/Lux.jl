@@ -884,14 +884,14 @@
 <li><code>statelength(layer::CustomAbstractExplicitLayer)</code> – These can be automatically calculated, but it is recommended that the user defines these.</li>
 </ul>
 <p>See also <a href="./#Lux.AbstractExplicitContainerLayer"><code>AbstractExplicitContainerLayer</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L1-L22' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L1-L22' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.AbstractExplicitContainerLayer' href='#Lux.AbstractExplicitContainerLayer'>#</a>
 <strong><code>Lux.AbstractExplicitContainerLayer</code></strong> &mdash; <em>Type</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">AbstractExplicitContainerLayer</span><span class="p">{</span><span class="kt">layers</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractExplicitLayer</span><span class="w"></span>
 </code></pre></div>
 <p>Abstract Container Type for certain Lux Layers. <code>layers</code> is a tuple containing fieldnames for the layer, and constructs the parameters and states using those.</p>
 <p>Users implementing their custom layer can extend the same functions as in <a href="./#Lux.AbstractExplicitLayer"><code>AbstractExplicitLayer</code></a></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L97-L105' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L97-L105' class='documenter-source'>source</a><br></p>
 <p><a id='General'></a></p>
 <p><a id='General-1'></a></p>
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">¤</a></h2>
@@ -901,7 +901,7 @@
 <span class="w">      </span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Simply calls <code>model(x, ps, st)</code></p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L80-L85' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L80-L85' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.setup' href='#Lux.setup'>#</a>
 <strong><code>Lux.setup</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">setup</span><span class="p">(</span><span class="n">rng</span><span class="o">::</span><span class="kt">AbstractRNG</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="o">::</span><span class="kt">AbstractExplicitLayer</span><span class="p">)</span><span class="w"></span>
@@ -911,7 +911,7 @@
 <p class="admonition-title">Warning</p>
 <p>This function is not pure, it mutates <code>rng</code>.</p>
 </div>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L66-L75' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L66-L75' class='documenter-source'>source</a><br></p>
 <p><a id='Parameters'></a></p>
 <p><a id='Parameters-1'></a></p>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">¤</a></h2>
@@ -920,13 +920,13 @@
 <div class="highlight"><pre><span></span><code><span class="n">initialparameters</span><span class="p">(</span><span class="n">rng</span><span class="o">::</span><span class="kt">AbstractRNG</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Generate the initial parameters of the layer <code>l</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L25-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L25-L29' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.parameterlength' href='#Lux.parameterlength'>#</a>
 <strong><code>Lux.parameterlength</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">parameterlength</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Return the total number of parameters of the layer <code>l</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L43-L47' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L43-L47' class='documenter-source'>source</a><br></p>
 <p><a id='States'></a></p>
 <p><a id='States-1'></a></p>
 <h2 id="states">States<a class="headerlink" href="#states" title="Permanent link">¤</a></h2>
@@ -935,31 +935,31 @@
 <div class="highlight"><pre><span></span><code><span class="n">initialstates</span><span class="p">(</span><span class="n">rng</span><span class="o">::</span><span class="kt">AbstractRNG</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Generate the initial states of the layer <code>l</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L35-L39' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L35-L39' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.statelength' href='#Lux.statelength'>#</a>
 <strong><code>Lux.statelength</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">statelength</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Return the total number of states of the layer <code>l</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L56-L60' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L56-L60' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.testmode' href='#Lux.testmode'>#</a>
 <strong><code>Lux.testmode</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">testmode</span><span class="p">(</span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Make all occurances of <code>training</code> in state <code>st</code> – <code>Val(false)</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L129-L133' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L129-L133' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.trainmode' href='#Lux.trainmode'>#</a>
 <strong><code>Lux.trainmode</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">trainmode</span><span class="p">(</span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Make all occurances of <code>training</code> in state <code>st</code> – <code>Val(true)</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L136-L140' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L136-L140' class='documenter-source'>source</a><br></p>
 <p><a id='Lux.update_state' href='#Lux.update_state'>#</a>
 <strong><code>Lux.update_state</code></strong> &mdash; <em>Function</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">update_state</span><span class="p">(</span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="n">layer_check</span><span class="o">=</span><span class="n">_default_layer_check</span><span class="p">(</span><span class="n">key</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 <p>Recursively update all occurances of the <code>key</code> in the state <code>st</code> with the <code>value</code>.</p>
-<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/96588e0fe446bd5f480f96908ef5abda739fa951/src/core.jl#L143-L147' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/avik-pal/Lux.jl/blob/412f099f3887195dea78025e17ec3fb836e53840/src/core.jl#L143-L147' class='documenter-source'>source</a><br></p>
 <p><a id='Index'></a></p>
 <p><a id='Index-1'></a></p>
 <h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">¤</a></h2>
