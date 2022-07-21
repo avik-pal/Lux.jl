@@ -874,9 +874,9 @@
 <h1 id="training-a-simple-lstm">Training a Simple LSTM<a class="headerlink" href="#training-a-simple-lstm" title="Permanent link">¤</a></h1>
 <p>In this tutorial we will go over using a recurrent neural network to classify clockwise and anticlockwise spirals. By the end of this tutorial you will be able to:</p>
 <ol>
-<li>Create custom Lux models</li>
-<li>Become familiar with the Lux recurrent neural network API</li>
-<li>Training using Optimisers.jl and Zygote.jl</li>
+<li>Create custom Lux models.</li>
+<li>Become familiar with the Lux recurrent neural network API.</li>
+<li>Training using Optimisers.jl and Zygote.jl.</li>
 </ol>
 <p><a id='Package-Imports'></a></p>
 <p><a id='Package-Imports-1'></a></p>
@@ -889,7 +889,7 @@
 <p><a id='Dataset'></a></p>
 <p><a id='Dataset-1'></a></p>
 <h2 id="dataset">Dataset<a class="headerlink" href="#dataset" title="Permanent link">¤</a></h2>
-<p>We will use MLUtils to generate 500 (noisy) clockwise and 500 (noisy) anticlockwise spirals. Using this data we will create a <code>MLUtils.DataLoader</code>. Our dataloader will give us sequences of size 2 × seq<em>len × batch</em>size and we need to predict a binary value whether the sequence is clockwise or anticlockwise</p>
+<p>We will use MLUtils to generate 500 (noisy) clockwise and 500 (noisy) anticlockwise spirals. Using this data we will create a <code>MLUtils.DataLoader</code>. Our dataloader will give us sequences of size 2 × seq<em>len × batch</em>size and we need to predict a binary value whether the sequence is clockwise or anticlockwise.</p>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">get_dataloaders</span><span class="p">(;</span><span class="w"> </span><span class="n">dataset_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="c"># Create the spirals</span><span class="w"></span>
 <span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">MLUtils</span><span class="o">.</span><span class="n">Datasets</span><span class="o">.</span><span class="n">make_spiral</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">dataset_size</span><span class="p">]</span><span class="w"></span>
@@ -923,7 +923,7 @@
 <span class="w">    </span><span class="n">classifier</span><span class="o">::</span><span class="kt">C</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
 </code></pre></div>
-<p>We won't define the model from scratch but rather use the <a href="../../../../../api/layers/#Lux.LSTMCell"><code>Lux.LSTMCell</code></a> and <a href="../../../../../api/layers/#Lux.Dense"><code>Lux.Dense</code></a></p>
+<p>We won't define the model from scratch but rather use the <a href="../../../../../api/layers/#Lux.LSTMCell"><code>Lux.LSTMCell</code></a> and <a href="../../../../../api/layers/#Lux.Dense"><code>Lux.Dense</code></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">SpiralClassifier</span><span class="p">(</span><span class="n">in_dims</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_dims</span><span class="p">,</span><span class="w"> </span><span class="n">out_dims</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SpiralClassifier</span><span class="p">(</span><span class="n">LSTMCell</span><span class="p">(</span><span class="n">in_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">hidden_dims</span><span class="p">),</span><span class="w"></span>
 <span class="w">                            </span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_dims</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out_dims</span><span class="p">,</span><span class="w"> </span><span class="n">sigmoid</span><span class="p">))</span><span class="w"></span>
@@ -931,7 +931,7 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Main.SpiralClassifier
 </code></pre></div>
-<p>Now we need to define the behavior of the Classifier when it is invoked</p>
+<p>Now we need to define the behavior of the Classifier when it is invoked.</p>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">SpiralClassifier</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="kt">AbstractArray</span><span class="p">{</span><span class="kt">T</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span><span class="w"> </span><span class="n">ps</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="n">st</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="p">{</span><span class="kt">T</span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="c"># First we will have to run the sequence through the LSTM Cell</span><span class="w"></span>
@@ -953,7 +953,7 @@
 <p><a id='Defining-Accuracy,-Loss-and-Optimiser'></a></p>
 <p><a id='Defining-Accuracy,-Loss-and-Optimiser-1'></a></p>
 <h2 id="defining-accuracy-loss-and-optimiser">Defining Accuracy, Loss and Optimiser<a class="headerlink" href="#defining-accuracy-loss-and-optimiser" title="Permanent link">¤</a></h2>
-<p>Now let's define the binarycrossentropy loss. Typically it is recommended to use <code>logitbinarycrossentropy</code> since it is more numerically stable, but for the sake of simplicity we will use <code>binarycrossentropy</code></p>
+<p>Now let's define the binarycrossentropy loss. Typically it is recommended to use <code>logitbinarycrossentropy</code> since it is more numerically stable, but for the sake of simplicity we will use <code>binarycrossentropy</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">xlogy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">iszero</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">result</span><span class="p">),</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"></span>
@@ -974,7 +974,7 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>accuracy (generic function with 1 method)
 </code></pre></div>
-<p>Finally lets create an optimiser given the model parameters</p>
+<p>Finally lets create an optimiser given the model parameters.</p>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">create_optimiser</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">ADAM</span><span class="p">(</span><span class="mf">0.01f0</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Optimisers</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span><span class="w"> </span><span class="n">ps</span><span class="p">)</span><span class="w"></span>

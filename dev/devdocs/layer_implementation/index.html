@@ -900,12 +900,12 @@
 <p><a id='Pros-1'></a></p>
 <h5 id="pros">Pros<a class="headerlink" href="#pros" title="Permanent link">¤</a></h5>
 <ol>
-<li>Simple Design and Implementation</li>
+<li>Simple Design and Implementation.</li>
 <li>
-<p>Hard for the User to mess up, i.e. there is no explicit requirement to call things like <code>Flux.reset!</code></p>
+<p>Hard for the User to mess up, i.e. there is no explicit requirement to call things like <code>Flux.reset!</code>.</p>
 <ul>
-<li>In the first call user passes the <code>input</code></li>
-<li>In the subsequent calls, the user passes a tuple containing the <code>input</code>, <code>hidden_state</code> and <code>memory</code> (if needed)</li>
+<li>In the first call user passes the <code>input</code>.</li>
+<li>In the subsequent calls, the user passes a tuple containing the <code>input</code>, <code>hidden_state</code> and <code>memory</code> (if needed).</li>
 </ul>
 </li>
 </ol>
@@ -914,16 +914,16 @@
 <h5 id="cons">Cons<a class="headerlink" href="#cons" title="Permanent link">¤</a></h5>
 <ol>
 <li>Requires more explicit management from the user which might make it harder to use.</li>
-<li>Currently the call order convention is not enforced which could lead to sneaky errors. (Implementing a check is quite trivial if we store a call counter in the model <code>state</code>)</li>
+<li>Currently the call order convention is not enforced which could lead to sneaky errors. (Implementing a check is quite trivial if we store a call counter in the model <code>state</code>).</li>
 </ol>
 <p><a id='Store-Hidden-State-and-Memory-in-Model-State'></a></p>
 <p><a id='Store-Hidden-State-and-Memory-in-Model-State-1'></a></p>
 <h4 id="store-hidden-state-and-memory-in-model-state">Store Hidden State and Memory in Model State<a class="headerlink" href="#store-hidden-state-and-memory-in-model-state" title="Permanent link">¤</a></h4>
-<p>Storing the memory and hidden state in <code>st</code> would allow user to just pass <code>x</code> without varying how calls are made at different timesteps</p>
+<p>Storing the memory and hidden state in <code>st</code> would allow user to just pass <code>x</code> without varying how calls are made at different timesteps.</p>
 <p><a id='Pros-2'></a></p>
 <h5 id="pros_1">Pros<a class="headerlink" href="#pros_1" title="Permanent link">¤</a></h5>
 <ol>
-<li>Easier for the end-user</li>
+<li>Easier for the end-user.</li>
 </ol>
 <p><a id='Cons-2'></a></p>
 <h5 id="cons_1">Cons<a class="headerlink" href="#cons_1" title="Permanent link">¤</a></h5>
@@ -931,7 +931,7 @@
 <li>
 <p><code>reset</code>ing the hidden-state and memory is slightly tricky.</p>
 <ol>
-<li>One way would be to store a <code>initial_hidden_state</code> and <code>initial_memory</code> in the state alongside the <code>hidden_state</code> and <code>memory</code></li>
+<li>One way would be to store a <code>initial_hidden_state</code> and <code>initial_memory</code> in the state alongside the <code>hidden_state</code> and <code>memory</code>.</li>
 </ol>
 </li>
 </ol>
@@ -951,7 +951,7 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
 </code></pre></div>
-<p>We enforce the inputs to be of the format <code>in_dims × sequence_length × batch_size</code></p>
+<p>We enforce the inputs to be of the format <code>in_dims × sequence_length × batch_size</code>.</p>
 
               
             </article>

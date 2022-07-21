@@ -939,7 +939,7 @@
 <li>Keyword Arguments must be separated using a semicolon <code>;</code></li>
 <li>Functions must use <code>return</code>. Returning the last value is quite ambiguous – did the author actually want it returned?</li>
 <li>Format docstrings as you would format regular code. If the docstring constains LaTeX in multiple lines, use <code>math</code> block.</li>
-<li>No avoiding multiply symbol – so <code>2x</code> is invalid instead do it like other languages <code>2 * x</code></li>
+<li>No avoiding multiply symbol – so <code>2x</code> is invalid instead do it like other languages <code>2 * x</code>.</li>
 </ul>
 <p><a id='Unicode-Characters'></a></p>
 <p><a id='Unicode-Characters-1'></a></p>
@@ -1008,21 +1008,21 @@
 <p><a id='Documentation-for-Layers'></a></p>
 <p><a id='Documentation-for-Layers-1'></a></p>
 <h3 id="documentation-for-layers">Documentation for Layers<a class="headerlink" href="#documentation-for-layers" title="Permanent link">¤</a></h3>
-<p>The first line must be indented by 4 spaces and should contain the possible ways to construct the layer. This should be followed up with a description about what the layer does. If mathematical equations are needed to explain what the layer does, go for it. Often times we fuse parameters to make computation faster, this should be reflected in the equations being used, i.e. equations and the internal code must be consistent. (See <a href="../../api/layers/#Lux.LSTMCell"><code>LSTMCell</code></a>, <a href="../../api/layers/#Lux.GRUCell"><code>GRUCell</code></a> for some examples)</p>
+<p>The first line must be indented by 4 spaces and should contain the possible ways to construct the layer. This should be followed up with a description about what the layer does. If mathematical equations are needed to explain what the layer does, go for it. Often times we fuse parameters to make computation faster, this should be reflected in the equations being used, i.e. equations and the internal code must be consistent. (See <a href="../../api/layers/#Lux.LSTMCell"><code>LSTMCell</code></a>, <a href="../../api/layers/#Lux.GRUCell"><code>GRUCell</code></a> for some examples.)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There is no need to document how the layers are being called since they <strong>must</strong> adhere to <code>layer(x, ps, st)</code>. Any deviation from that and the PR will not be accepted.</p>
 </div>
-<p>Next, we will have certain subsections (though all of them might not be necessary for all layers)</p>
+<p>Next, we will have certain subsections (though all of them might not be necessary for all layers).</p>
 <ul>
 <li>
 <p><strong>Arguments</strong>: This section should be present unless the layer is constructed without any arguments (See <a href="../../api/layers/#Lux.NoOpLayer"><code>NoOpLayer</code></a>). All the arguments and their explicit constraints must be explained.</p>
 <ul>
-<li>It is recommended to separate out the Keyword Arguments in their own section</li>
-<li><strong>Inputs</strong>: This section should always be present. List out the requirements <code>x</code> needs to satisfy. (don't write about <code>ps</code> and <code>st</code> since that is expected by default)</li>
+<li>It is recommended to separate out the Keyword Arguments in their own section.</li>
+<li><strong>Inputs</strong>: This section should always be present. List out the requirements <code>x</code> needs to satisfy. (Don't write about <code>ps</code> and <code>st</code> since that is expected by default.)</li>
 <li><strong>Returns</strong>: What will the layer return? We know the second element will be a state but is that updated in any form or not?</li>
-<li><strong>Parameters</strong>: What are the properties of the NamedTuple returned from <code>initialparameters</code>? Omit if the layer is parameterless</li>
-<li><strong>States</strong>: What are the properties of the NamedTuple returned from <code>initialstates</code>? Omit if the layer is stateless</li>
+<li><strong>Parameters</strong>: What are the properties of the NamedTuple returned from <code>initialparameters</code>? Omit if the layer is parameterless.</li>
+<li><strong>States</strong>: What are the properties of the NamedTuple returned from <code>initialstates</code>? Omit if the layer is stateless.</li>
 </ul>
 </li>
 </ul>

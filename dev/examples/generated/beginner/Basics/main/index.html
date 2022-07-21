@@ -1094,7 +1094,7 @@
 <p><a id='(Im)mutability'></a></p>
 <p><a id='(Im)mutability-1'></a></p>
 <h2 id="immutability">(Im)mutability<a class="headerlink" href="#immutability" title="Permanent link">¤</a></h2>
-<p>Lux as you might have read is <a href="http://lux.csail.mit.edu/dev/introduction/overview/#Design-Principles">Immutable by convention</a> which means that the core library is built without any form of mutation and all functions are pure. However, we don't enfore it in any form. We do <strong>strongly recommend</strong> that users extending this framework for their respective applications don't mutate their arrays.</p>
+<p>Lux as you might have read is <a href="http://lux.csail.mit.edu/dev/introduction/overview/#Design-Principles">Immutable by convention</a> which means that the core library is built without any form of mutation and all functions are pure. However, we don't enforce it in any form. We do <strong>strongly recommend</strong> that users extending this framework for their respective applications don't mutate their arrays.</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>2×4 reshape(::UnitRange{Int64}, 2, 4) with eltype Int64:
@@ -1115,14 +1115,14 @@ Mutated Array [0 3 5 7; 0 4 6 8]
 <p><a id='Managing-Randomness'></a></p>
 <p><a id='Managing-Randomness-1'></a></p>
 <h2 id="managing-randomness">Managing Randomness<a class="headerlink" href="#managing-randomness" title="Permanent link">¤</a></h2>
-<p>We relu on the Julia StdLib <code>Random</code> for managing the randomness in our execution. First, we create an PRNG and seed it.</p>
+<p>We rely on the Julia StdLib <code>Random</code> for managing the randomness in our execution. First, we create an PRNG and seed it.</p>
 <div class="highlight"><pre><span></span><code><span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"> </span><span class="c"># Creates a Xoshiro PRNG</span><span class="w"></span>
 <span class="n">Random</span><span class="o">.</span><span class="n">seed!</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Random.TaskLocalRNG()
 </code></pre></div>
 <p>If we call any function that relies on <code>rng</code> and uses it via <code>randn</code>, <code>rand</code>, etc. <code>rng</code> will be mutated. As we have already established we care a lot about immutability, hence we should use <code>Lux.replicate</code> on PRNG before using them.</p>
-<p>First, let us run a random number generator 3 times with the <code>replicate</code>d rng</p>
+<p>First, let us run a random number generator 3 times with the <code>replicate</code>d rng.</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Iteration </span><span class="si">$i</span><span class="s"> &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">Lux</span><span class="o">.</span><span class="n">replicate</span><span class="p">(</span><span class="n">rng</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
@@ -1131,7 +1131,7 @@ Mutated Array [0 3 5 7; 0 4 6 8]
 Iteration 2 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
 Iteration 3 [0.4552384158732863, 0.5476424498276177, 0.7733535276924052, 0.9405848223512736, 0.02964765308691042, 0.74694291453392, 0.7468008914093891, 0.9766699015845924, 0.08694684883050086, 0.35149138733595564]
 </code></pre></div>
-<p>As expected we get the same output. We can remove the <code>replicate</code> call and we will get different outputs</p>
+<p>As expected we get the same output. We can remove the <code>replicate</code> call and we will get different outputs.</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Iteration </span><span class="si">$i</span><span class="s"> &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
@@ -1143,7 +1143,7 @@ Iteration 3 [0.19597391412112541, 0.6830945313415872, 0.6776220912718907, 0.6456
 <p><a id='Automatic-Differentiation'></a></p>
 <p><a id='Automatic-Differentiation-1'></a></p>
 <h2 id="automatic-differentiation">Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Permanent link">¤</a></h2>
-<p>Julia has quite a few (maybe too many) AD tools. For the purpose of this tutorial, we will use <a href="https://github.com/JuliaDiff/AbstractDifferentiation.jl">AbstractDifferentiation.jl</a> which provides an uniform API across multiple AD backends. For the backends we will use:</p>
+<p>Julia has quite a few (maybe too many) AD tools. For the purpose of this tutorial, we will use <a href="https://github.com/JuliaDiff/AbstractDifferentiation.jl">AbstractDifferentiation.jl</a> which provides a uniform API across multiple AD backends. For the backends we will use:</p>
 <ol>
 <li><a href="https://github.com/JuliaDiff/ForwardDiff.jl">ForwardDiff.jl</a> – For Jacobian-Vector Product (JVP)</li>
 <li><a href="https://github.com/FluxML/Zygote.jl">Zygote.jl</a> – For Vector-Jacobian Product (VJP)</li>
@@ -1166,7 +1166,7 @@ Iteration 3 [0.19597391412112541, 0.6830945313415872, 0.6776220912718907, 0.6456
   0.92155594
   1.1871622
 </code></pre></div>
-<p>Let's use AbstractDifferentiation and Zygote to compute the gradients</p>
+<p>Let's use AbstractDifferentiation and Zygote to compute the gradients.</p>
 <div class="highlight"><pre><span></span><code><span class="n">println</span><span class="p">(</span><span class="s">&quot;Actual Gradient: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">∇f</span><span class="p">(</span><span class="n">v</span><span class="p">))</span><span class="w"></span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Gradient via Reverse Mode AD (Zygote): &quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="n">AD</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ZygoteBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
@@ -1177,11 +1177,11 @@ Iteration 3 [0.19597391412112541, 0.6830945313415872, 0.6776220912718907, 0.6456
 Computed Gradient via Reverse Mode AD (Zygote): Float32[-0.4051151, -0.4593922, 0.92155594, 1.1871622]
 Computed Gradient via Forward Mode AD (ForwardDiff): Float32[-0.4051151, -0.4593922, 0.92155594, 1.1871622]
 </code></pre></div>
-<p>Note that <code>AD.gradient</code> will only work for scalar valued outputs</p>
+<p>Note that <code>AD.gradient</code> will only work for scalar valued outputs.</p>
 <p><a id='Jacobian-Vector-Product'></a></p>
 <p><a id='Jacobian-Vector-Product-1'></a></p>
 <h3 id="jacobian-vector-product">Jacobian-Vector Product<a class="headerlink" href="#jacobian-vector-product" title="Permanent link">¤</a></h3>
-<p>I will defer the discussion on forward-mode AD to https://book.sciml.ai/notes/08/. Here let us just look at a mini example on how to use it.</p>
+<p>I will defer the discussion on forward-mode AD to <a href="https://book.sciml.ai/notes/08/">https://book.sciml.ai/notes/08/</a>. Here let us just look at a mini example on how to use it.</p>
 <div class="highlight"><pre><span></span><code><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">./</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
 <span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
 <span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
@@ -1198,7 +1198,7 @@ Computed Gradient via Forward Mode AD (ForwardDiff): Float32[-0.4051151, -0.4593
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>#17 (generic function with 1 method)
 </code></pre></div>
-<p>Compute the jvp</p>
+<p>Compute the jvp.</p>
 <div class="highlight"><pre><span></span><code><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">jvp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pf_f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"></span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Value: f(&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;) = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"></span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot;JVP: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">jvp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
@@ -1209,12 +1209,12 @@ JVP: Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]
 <p><a id='Vector-Jacobian-Product'></a></p>
 <p><a id='Vector-Jacobian-Product-1'></a></p>
 <h3 id="vector-jacobian-product">Vector-Jacobian Product<a class="headerlink" href="#vector-jacobian-product" title="Permanent link">¤</a></h3>
-<p>Using the same function and inputs, let us compute the VJP</p>
+<p>Using the same function and inputs, let us compute the VJP.</p>
 <div class="highlight"><pre><span></span><code><span class="n">pb_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AD</span><span class="o">.</span><span class="n">value_and_pullback_function</span><span class="p">(</span><span class="n">AD</span><span class="o">.</span><span class="n">ZygoteBackend</span><span class="p">(),</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>#25 (generic function with 1 method)
 </code></pre></div>
-<p>Compute the vjp</p>
+<p>Compute the vjp.</p>
 <div class="highlight"><pre><span></span><code><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">vjp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pb_f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"></span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot;Computed Value: f(&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;) = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"></span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot;VJP: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vjp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
@@ -1225,11 +1225,11 @@ VJP: Float32[-0.877497, 1.1953009, -0.057005208, 0.25055695, 0.09351656]
 <p><a id='Linear-Regression'></a></p>
 <p><a id='Linear-Regression-1'></a></p>
 <h2 id="linear-regression">Linear Regression<a class="headerlink" href="#linear-regression" title="Permanent link">¤</a></h2>
-<p>Finally, now let us consider a linear regression problem. From a set of data-points <span class="arithmatex">\(\left\{ (x_i, y_i), i \in \left\{ 1, \dots, k \right\}, x_i \in \mathbb{R}^n, y_i \in \mathbb{R}^m \right\}\)</span>, we try to find a set of parameters <span class="arithmatex">\(W\)</span> and <span class="arithmatex">\(b\)</span>, s.t. <span class="arithmatex">\(f_{W,b}(x) = Wx + b\)</span> minimizes the mean squared error:</p>
+<p>Finally, now let us consider a linear regression problem. From a set of data-points <span class="arithmatex">\(\left\{ (x_i, y_i), i \in \left\{ 1, \dots, k \right\}, x_i \in \mathbb{R}^n, y_i \in \mathbb{R}^m \right\}\)</span>, we try to find a set of parameters <span class="arithmatex">\(W\)</span> and <span class="arithmatex">\(b\)</span>, s.t. <span class="arithmatex">\(f_{W,b}(x) = Wx + b\)</span>, which minimizes the mean squared error:</p>
 <div class="arithmatex">\[
 L(W, b) \longrightarrow \sum_{i = 1}^{k} \frac{1}{2} \| y_i - f_{W,b}(x_i) \|_2^2
 \]</div>
-<p>We can write <code>f</code> from scratch, but to demonstrate <code>Lux</code> let us use the <code>Dense</code> layer.</p>
+<p>We can write <code>f</code> from scratch, but to demonstrate <code>Lux</code>, let us use the <code>Dense</code> layer.</p>
 <div class="highlight"><pre><span></span><code><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
 
 <span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span><span class="w"></span>
@@ -1237,7 +1237,7 @@ L(W, b) \longrightarrow \sum_{i = 1}^{k} \frac{1}{2} \| y_i - f_{W,b}(x_i) \|_2^
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Random.TaskLocalRNG()
 </code></pre></div>
-<p>Let us initialize the parameters and states (in this case it is empty) for the model</p>
+<p>Let us initialize the parameters and states (in this case it is empty) for the model.</p>
 <div class="highlight"><pre><span></span><code><span class="n">ps</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">)</span><span class="w"></span>
 <span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">Lux</span><span class="o">.</span><span class="n">ComponentArray</span><span class="w"></span>
 </code></pre></div>
